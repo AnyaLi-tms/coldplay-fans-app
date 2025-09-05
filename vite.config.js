@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   preview: {
-    allowedHosts: ['coldplay-fans-app-production.up.railway.app']
-  }
+    allowedHosts: ['coldplay-fans-app-production.up.railway.app'],
+  },
 })
