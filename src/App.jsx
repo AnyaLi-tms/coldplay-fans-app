@@ -1,10 +1,18 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const handleGetBanner = async () => {
+    try {
+      const res = await axios.get('https://coldplay-fans-production.up.railway.app/banners');
+      console.log(res.data);
+    } catch (err) {
+      console.error('获取 Banner 失败:', err);
+    }
+  }
 
   return (
     <>
@@ -18,8 +26,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={handleGetBanner}>
+          Get Banner Test
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
