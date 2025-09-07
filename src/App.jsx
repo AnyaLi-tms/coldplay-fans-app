@@ -1,7 +1,13 @@
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import { getBanners, getBannerById, createBanner, updateBanner, deleteBanner } from './services/requests';
+import {
+  getBanners,
+  getBannerById,
+  createBanner,
+  updateBanner,
+  deleteBanner,
+} from './services/requests';
 
 import { useState } from 'react';
 
@@ -77,7 +83,15 @@ function App() {
         </a>
       </div>
       <h1>Banner API 测试</h1>
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
+      <div
+        className="card"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          alignItems: 'flex-start',
+        }}
+      >
         {/* 获取所有Banner */}
         <button onClick={handleGetBanners}>获取所有 Banner</button>
 
@@ -87,7 +101,7 @@ function App() {
             type="text"
             placeholder="输入 Banner ID"
             value={bannerId}
-            onChange={e => setBannerId(e.target.value)}
+            onChange={(e) => setBannerId(e.target.value)}
             style={{ marginRight: '8px' }}
           />
           <button onClick={handleGetBannerById}>获取指定 Banner</button>
@@ -99,7 +113,7 @@ function App() {
             type="text"
             placeholder="新 Banner 内容"
             value={newBanner}
-            onChange={e => setNewBanner(e.target.value)}
+            onChange={(e) => setNewBanner(e.target.value)}
             style={{ marginRight: '8px' }}
           />
           <button onClick={handleCreateBanner}>创建 Banner</button>
@@ -111,14 +125,14 @@ function App() {
             type="text"
             placeholder="Banner ID"
             value={updateId}
-            onChange={e => setUpdateId(e.target.value)}
+            onChange={(e) => setUpdateId(e.target.value)}
             style={{ marginRight: '8px' }}
           />
           <input
             type="text"
             placeholder="新内容"
             value={updateBannerVal}
-            onChange={e => setUpdateBannerVal(e.target.value)}
+            onChange={(e) => setUpdateBannerVal(e.target.value)}
             style={{ marginRight: '8px' }}
           />
           <button onClick={handleUpdateBanner}>更新 Banner</button>
@@ -130,17 +144,15 @@ function App() {
             type="text"
             placeholder="Banner ID"
             value={deleteId}
-            onChange={e => setDeleteId(e.target.value)}
+            onChange={(e) => setDeleteId(e.target.value)}
             style={{ marginRight: '8px' }}
           />
           <button onClick={handleDeleteBanner}>删除 Banner</button>
         </div>
       </div>
-      <p className="read-the-docs">
-        F12 打开控制台查看接口返回结果
-      </p>
+      <p className="read-the-docs">F12 打开控制台查看接口返回结果</p>
     </>
   );
 }
 
-export default App
+export default App;

@@ -10,7 +10,8 @@ export const getBannerById = (id) => api.get(`/banners/${id}`);
 export const createBanner = (banner) => api.post('/banners', banner);
 
 // 更新 Banner
-export const updateBanner = (id, updatedBanner) => api.put(`/banners/${id}`, updatedBanner);
+export const updateBanner = (id, updatedBanner) =>
+  api.put(`/banners/${id}`, updatedBanner);
 
 // 删除 Banner
 export const deleteBanner = (id) => api.delete(`/banners/${id}`);

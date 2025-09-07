@@ -11,17 +11,17 @@ const api = axios.create({
 
 // 请求拦截器
 api.interceptors.request.use(
-  (config) => /* 可在此添加token等*/ /* config.headers.Authorization = "Bearer fake-token";*/ config,
+  (config) =>
+    /* 可在此添加token等*/ /* config.headers.Authorization = "Bearer fake-token";*/ config,
   (error) => Promise.reject(error),
 );
 
 // 响应拦截器
 api.interceptors.response.use(
   (response) => response.data,
-  (error) => 
+  (error) =>
     // 可在此统一处理错误
     Promise.reject(error),
-  
 );
 
 export default api;

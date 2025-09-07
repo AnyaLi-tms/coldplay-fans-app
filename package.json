@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "lint:js": "eslint --fix 'src/**/*.{js,jsx}'",
     "lint:css": "stylelint --fix 'src/**/*.{css,scss}'",
-    "lint": "npm run lint:js && npm run lint:css"
+    "lint": "npm run lint:js && npm run lint:css",
+    "prepare": "husky install",
+    "lint:all": "eslint 'src/**/*.{js,jsx}' && stylelint 'src/**/*.{css,scss}' && prettier --check 'src/**/*.{js,jsx,css,scss,json,md,html}'"
   },
   "dependencies": {
     "axios": "^1.11.0",
@@ -37,7 +39,15 @@
     "vite": "^7.1.2"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --fix", "prettier --write", "git add"],
-    "*.{css,scss}": ["stylelint --fix", "prettier --write", "git add"]
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
