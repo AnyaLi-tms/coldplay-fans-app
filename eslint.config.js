@@ -1,6 +1,7 @@
 import { defineConfig } from "eslint/config";
 import js from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
 export default defineConfig([
@@ -8,7 +9,7 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,jsx}"],
     ignores: ["dist", "node_modules", "*.min.js", "public"], // <-- 这里替代 .eslintignore
     languageOptions: { globals: globals.browser },
-    plugins: { js },
+    plugins: { js, reactHooks: pluginReactHooks },
     extends: ["js/recommended"],
   },
   pluginReact.configs.flat.recommended,
