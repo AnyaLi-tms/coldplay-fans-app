@@ -7,9 +7,12 @@ import globals from "globals";
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
-    ignores: ["dist", "node_modules", "*.min.js", "public"], // <-- 这里替代 .eslintignore
+    ignores: ["dist", "node_modules", "*.min.js", "public"],
     languageOptions: { globals: globals.browser },
-    plugins: { js, reactHooks: pluginReactHooks },
+    plugins: {
+      react: pluginReact,
+      "react-hooks": pluginReactHooks
+    },
     extends: ["js/recommended"],
   },
   pluginReact.configs.flat.recommended,
