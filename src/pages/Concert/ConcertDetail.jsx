@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import seatImg from '../../img/seatmap.png';
 import api from '../../services/api';
 
 function ConcertDetail() {
@@ -44,6 +43,7 @@ function ConcertDetail() {
   const seatMapUrl = concert.seatMapUrl;
 
   const isAvailable = concert.status === 'available';
+
   return (
     <div
       style={{

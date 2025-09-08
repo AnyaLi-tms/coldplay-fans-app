@@ -44,6 +44,7 @@ export default function Login() {
     setError('');
     // 调用注册API
     const res = await registerUser(username, password);
+    console.log(res);
     if (res) {
       // 注册成功，切换到登录模式并自动填入用户名和密码，触发登录
       setMode('login');
@@ -53,7 +54,7 @@ export default function Login() {
         setPassword(password);
       }, 100);
     } else {
-      setError(error || '注册失败');
+      console.log(error);
     }
   };
 
@@ -67,8 +68,8 @@ export default function Login() {
     setError('');
     // 调用登录API
     const res = await loginUser(username, password);
+    console.log(res);
     if (!res) {
-      setError(error || '登录失败');
       return;
     }
     // 登录成功，返回上一页
