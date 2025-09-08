@@ -1,10 +1,10 @@
 import api from './api';
 
 // 获取所有 Banner
-export const getBanners = () => api.get('/banners');
+export const getBanners = () => api.get('/banners').then((res) => res.data);
 
-// 根据 ID 获取 Banner
-export const getBannerById = (id) => api.get(`/banners/${id}`);
+export const getBannerById = (id) =>
+  api.get(`/banners/${id}`).then((res) => res.data);
 
 // 创建 Banner
 export const createBanner = (banner) => api.post('/banners', banner);
