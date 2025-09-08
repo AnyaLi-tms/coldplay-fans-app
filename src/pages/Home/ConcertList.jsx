@@ -1,5 +1,6 @@
 import { Card, Button, Input, DatePicker, Space } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const concerts = [
   {
@@ -23,6 +24,7 @@ const concerts = [
 const ConcertList = () => {
   const [search, setSearch] = useState('');
   const [dates, setDates] = useState([]);
+  const navigate = useNavigate();
 
   const filtered = concerts.filter((c) => {
     const matchName = c.name.includes(search);
@@ -32,6 +34,10 @@ const ConcertList = () => {
         c.date <= dates[1]?.format('YYYY-MM-DD'));
     return matchName && matchDate;
   });
+
+  const handleBuy = (id) => {
+    navigate(`/concertdetail/${id}`);
+  };
 
   return (
     <div>
@@ -68,7 +74,9 @@ const ConcertList = () => {
                 {c.date} | {c.city} | {c.place}
               </div>
             </div>
-            <Button type="primary">购买门票</Button>
+            <Button type="primary" onClick={() => handleBuy(c.id)}>
+              购买门票
+            </Button>
           </Card>
         ))}
       </div>
