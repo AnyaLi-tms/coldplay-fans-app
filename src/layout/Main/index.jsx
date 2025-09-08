@@ -1,5 +1,6 @@
 import Home from '../../pages/Home';
 import ConcertDetail from '../../pages/Home/ConcertDetail';
+import Login from '../../pages/Login';
 import { Routes, Route } from 'react-router-dom';
 
 const Main = () => (
@@ -8,6 +9,7 @@ const Main = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/concertdetail/:id" element={<ConcertDetail />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   </div>
 );
