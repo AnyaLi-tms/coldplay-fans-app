@@ -40,9 +40,8 @@ function ConcertDetail() {
     return null;
   }
 
-  const posterUrl = concert.img_url;
-  let seatMapUrl = concert.seatMapUrl;
-  if (!seatMapUrl) seatMapUrl = seatImg;
+  const posterUrl = concert.imgUrl;
+  const seatMapUrl = concert.seatMapUrl;
 
   const isAvailable = concert.status === 'available';
   return (
@@ -103,7 +102,7 @@ function ConcertDetail() {
         >
           <div
             style={{
-              color: '#000000ff',
+              color: '#ffffffff',
               fontWeight: 700,
               fontSize: 22,
               lineHeight: 1.3,
@@ -154,6 +153,7 @@ function ConcertDetail() {
         <div>
           <div
             style={{
+              color: '#222',
               fontSize: 26,
               fontWeight: 600,
               marginBottom: 18,
@@ -164,6 +164,7 @@ function ConcertDetail() {
           </div>
           <div
             style={{
+              color: '#222',
               fontSize: 22,
               fontWeight: 700,
               marginBottom: 12,
