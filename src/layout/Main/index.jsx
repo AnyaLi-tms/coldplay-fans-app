@@ -1,6 +1,6 @@
 import Home from '../../pages/Home';
-import ConcertDetail from '../../pages/Home/ConcertDetail';
-import Login from '../../pages/Login';
+import ConcertDetail from '../../pages/Concert/ConcertDetail';
+import Login from '../../pages/Login/login';
 import { Routes, Route } from 'react-router-dom';
 
 const Main = () => (
