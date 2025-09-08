@@ -1,21 +1,31 @@
-import { Tabs } from 'antd';
+import { NavLink } from 'react-router-dom';
 import styles from './index.module.css';
 
 const items = [
-  { key: 'home', label: '主页' },
-  { key: 'goods', label: '周边' },
-  { key: 'user', label: '我的' },
+  { key: 'home', label: '主页', path: '/' },
+  { key: 'goods', label: '周边', path: '/goods' },
+  { key: 'user', label: '我的', path: '/user' },
 ];
 
-const TabBar = ({ onTabChange }) => (
-  <Tabs
-    defaultActiveKey="home"
-    items={items}
-    onChange={(key) => {
-      // 阻止跳转，后续可加路由
-      if (onTabChange) onTabChange(key);
-    }}
-  />
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+const TabBar = () => (
+  <nav className={styles.tabbar} style={{ display: 'flex', gap: 24 }}>
+    {items.map((item) => (
+      <NavLink
+        key={item.key}
+        to={item.path}
+        className={({ isActive }) =>
+          classNames(styles.tab, isActive ? styles.active : '')
+        }
+        end={item.path === '/'}
+      >
+        {item.label}
+      </NavLink>
+    ))}
+  </nav>
 );
 
 export default TabBar;
