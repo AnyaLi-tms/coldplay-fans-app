@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "rule-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "color-function-alias-notation": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "font-family-name-quotes": null,
+    "selector-pseudo-class-no-unknown": null
+  }
+}
