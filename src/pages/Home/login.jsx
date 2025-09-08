@@ -1,54 +1,74 @@
-import React, { useState, useEffect } from "react";
-import "../../styles/login.css";
-
-function validatePassword(password) {
-  // 至少一个大写、一个小写、一个特殊字符，长度8-16
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[A-Za-z\d\W]{8,16}$/;
-  return regex.test(password);
-}
-
+import { useEffect } from 'react';
+import { useLoginStore } from '../../store/loginStore.jsx';
+import '../../styles/login.css';
 export default function Login() {
-  const [mode, setMode] = useState("login"); // 'login' or 'register'
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const {
+    validatePassword,
+    mode,
+    setMode,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    error,
+    setError,
+    registerUser,
+    loginUser,
+  } = useLoginStore();
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => setError(""), 3000);
+      const timer = setTimeout(() => setError(''), 3000);
       return () => clearTimeout(timer);
     }
   }, [error]);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (!username) {
-      setError("请输入用户名");
+      setError('请输入用户名');
       return;
     }
     if (password !== confirmPassword) {
-      setError("两次输入的密码不一致");
+      setError('两次输入的密码不一致');
       return;
     }
     if (!validatePassword(password)) {
-      setError("密码需8-16位，包含大小写字母和特殊字符");
+      setError('密码需8-16位，包含大小写字母和特殊字符');
+      console.log(password);
       return;
     }
-    setError("");
-    // 这里发送注册数据到后端
-    alert(`注册成功（模拟）：用户名=${username}`);
+    setError('');
+    // 调用注册API
+    const res = await registerUser(username, password);
+    if (res) {
+      // 注册成功，切换到登录模式并自动填入用户名和密码，触发登录
+      setMode('login');
+      setError('');
+      setTimeout(async () => {
+        setUsername(username);
+        setPassword(password);
+      }, 100);
+    } else {
+      setError(error || '注册失败');
+    }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!username || !password) {
-      setError("请输入用户名和密码");
+      setError('请输入用户名和密码');
       return;
     }
-    setError("");
-    // 这里发送登录数据到后端
-    alert(`登录成功（模拟）：用户名=${username}`);
+    setError('');
+    // 调用登录API
+    const res = await loginUser(username, password);
+    if (!res) {
+      setError(error || '登录失败');
+      return;
+    }
   };
 
   return (
@@ -57,32 +77,32 @@ export default function Login() {
       <div className="login-container-ref">
         <div className="login-tabs-labels-ref">
           <span
-            className={mode === "login" ? "active" : ""}
-            style={{ cursor: "pointer" }}
+            className={mode === 'login' ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
             onClick={() => {
-              setMode("login");
-              setError("");
-              setPassword("");
-              setConfirmPassword("");
+              setMode('login');
+              setError('');
+              setPassword('');
+              setConfirmPassword('');
             }}
           >
             密码登录
           </span>
           <span
-            className={mode === "register" ? "active" : ""}
-            style={{ cursor: "pointer" }}
+            className={mode === 'register' ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
             onClick={() => {
-              setMode("register");
-              setError("");
-              setPassword("");
-              setConfirmPassword("");
+              setMode('register');
+              setError('');
+              setPassword('');
+              setConfirmPassword('');
             }}
           >
             注册
           </span>
         </div>
         <div className="login-card-ref">
-          {mode === "login" ? (
+          {mode === 'login' ? (
             <form onSubmit={handleLogin} className="login-form-ref">
               <div className="form-row-ref">
                 <label>用户名</label>

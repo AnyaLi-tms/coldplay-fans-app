@@ -3,8 +3,8 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(229, 57, 53, 0.75);
-    color: #fff;
+        background: rgb(229 57 53);
+        color: rgb(255 255 255);
     padding: 14px 38px;
     border-radius: 10px;
     font-size: 1.15em;
@@ -13,11 +13,11 @@
     text-align: center;
     min-width: 200px;
     margin-top: 18px;
-    opacity: 0.96;
+    opacity: 0.75;
     animation: fadeInOut 3s linear;
 }
 
-@keyframes fadeInOut {
+@keyframes fade-in-out {
     0% {
         opacity: 0;
     }
@@ -64,7 +64,7 @@
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 12px #e0e0e0;
-    padding: 32px 32px 24px 32px;
+    padding: 32px 32px 24px;
     position: relative;
 }
 
