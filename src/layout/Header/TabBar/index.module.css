@@ -1,9 +1,26 @@
-:global(.ant-tabs-nav-list .ant-tabs-tab) {
-  font-size: 22px !important;
-  color: #fff !important;
-  border: none !important;
+.tabbar {
+  display: flex;
+  gap: 24px;
 }
 
-:global(.ant-tabs-ink-bar) {
-  display: none !important;
+.tab {
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  font-weight: 400;
+  border-bottom: 2px solid transparent;
+  transition:
+    color 0.2s,
+    border-bottom 0.2s;
+}
+
+.tab:hover {
+  color: #2196f3;
+}
+
+.active {
+  color: #2196f3;
+  font-weight: 700;
+  border-bottom: 2px solid #2196f3;
 }
