@@ -12,12 +12,15 @@
     "lint:css": "stylelint --fix 'src/**/*.{css,scss}'",
     "lint": "npm run lint:js && npm run lint:css",
     "prepare": "husky install",
-    "lint:all": "eslint 'src/**/*.{js,jsx}' && stylelint 'src/**/*.{css,scss}' && prettier --check 'src/**/*.{js,jsx,css,scss,json,md,html}'"
+    "lint:all": "eslint src/**/*.{js,jsx} && stylelint 'src/**/*.{css,scss}' && prettier --check 'src/**/*.{js,jsx,css,scss,json,md,html}'"
   },
   "dependencies": {
+    "antd": "^5.27.3",
     "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.8.2",
+    "swiper": "^11.2.10",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

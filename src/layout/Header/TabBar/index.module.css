@@ -1,0 +1,9 @@
+:global(.ant-tabs-nav-list .ant-tabs-tab) {
+  font-size: 22px !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+:global(.ant-tabs-ink-bar) {
+  display: none !important;
+}

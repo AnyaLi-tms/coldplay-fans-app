@@ -19,6 +19,7 @@ export default defineConfig([
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      'no-unused-vars': 'off',
       'no-var': 'error',
       'no-multiple-empty-lines': ['warn', { max: 1 }],
       'no-unexpected-multiline': 'error',
