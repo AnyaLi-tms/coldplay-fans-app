@@ -1,11 +1,11 @@
 import './App.css';
-import Tabbar from './layout/Tabbar';
+import Header from './layout/Header';
 import Main from './layout/Main';
 
 function App() {
   return (
     <>
-      <Tabbar />
+      <Header />
       <Main />
     </>
   );
