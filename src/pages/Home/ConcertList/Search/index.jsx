@@ -5,27 +5,49 @@ const Search = () => {
   const [search, setSearch] = useState('');
   const [dates, setDates] = useState([]);
   return (
-    <Space style={{ marginBottom: 16, marginTop: 30, height: 40 }}>
+    <div
+      style={{
+        marginBottom: 16,
+        marginTop: 30,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: 12,
+      }}
+      size="large"
+    >
       <Input
         placeholder="请输入城市"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{ width: 500, height: 50, fontSize: 18, fontWeight: 500 }}
+        style={{
+          flex: 1.3,
+          minWidth: 0,
+          height: 50,
+          fontSize: 18,
+          fontWeight: 500,
+        }}
       />
       <DatePicker.RangePicker
         value={dates}
         onChange={setDates}
         size="large"
         className="custom-range"
-        style={{ width: 500 }}
+        style={{ flex: 1.3, minWidth: 0 }}
       />
       <Button
         type="primary"
-        style={{ height: 50, width: 100, fontSize: 18, fontWeight: 500 }}
+        style={{
+          flex: 0.3,
+          minWidth: 80,
+          height: 50,
+          fontSize: 18,
+          fontWeight: 500,
+        }}
       >
         搜索
       </Button>
-    </Space>
+    </div>
   );
 };
 
