@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLoginStore } from '../../store/loginStore.jsx';
 import '../../styles/login.css';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const {
     validatePassword,
@@ -56,6 +57,7 @@ export default function Login() {
     }
   };
 
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!username || !password) {
@@ -69,6 +71,9 @@ export default function Login() {
       setError(error || '登录失败');
       return;
     }
+    // 登录成功，返回上一页
+    setError('');
+    navigate(-1);
   };
 
   return (
