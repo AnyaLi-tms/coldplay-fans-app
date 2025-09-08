@@ -1,27 +1,33 @@
 import { Carousel } from 'antd';
-import banner1 from '../../../assets/banner-01.webp';
-import banner2 from '../../../assets/banner-02.webp';
-import banner3 from '../../../assets/banner-03.webp';
-import banner4 from '../../../assets/banner-04.webp';
+import { useEffect } from 'react';
+import useBannerStore from '../../../store/bannerStore';
 import styles from './index.module.css';
 
-const bannerList = [
-  { img: banner1, alt: 'banner1' },
-  { img: banner2, alt: 'banner2' },
-  { img: banner3, alt: 'banner3' },
-  { img: banner4, alt: 'banner4' },
-];
+const Banner = () => {
+  const { banners, fetchBanners, loading } = useBannerStore();
 
-const Banner = () => (
-  <div className={styles.banner}>
-    <Carousel autoplay>
-      {bannerList.map((b) => (
-        <div className={styles['banner-item']} key={b.img}>
-          <img src={b.img} alt={b.alt} className={styles['banner-img']} />
-        </div>
-      ))}
-    </Carousel>
-  </div>
-);
+  useEffect(() => {
+    fetchBanners();
+  }, [fetchBanners]);
+
+  return (
+    <div className={styles.banner}>
+      <Carousel autoplay>
+        {loading && <div>加载中...</div>}
+        {banners.map((b) => (
+          <div className={styles['banner-item']} key={b.id || b.img}>
+            <a href={b.link} target="_blank" rel="noopener noreferrer">
+              <img
+                src={b.imgUrl}
+                alt={b.name}
+                className={styles['banner-img']}
+              />
+            </a>
+          </div>
+        ))}
+      </Carousel>
+    </div>
+  );
+};
 
 export default Banner;

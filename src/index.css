@@ -1,25 +1,3 @@
-/* Swiper 全局样式，前后图片半透明遮罩 */
-.swiper .swiper-slide {
-  transition: opacity 0.3s;
-  opacity: 0.5;
-  filter: grayscale(40%);
-  position: relative;
-}
-.swiper .swiper-slide-active {
-  opacity: 1;
-  filter: none;
-}
-.swiper .swiper-slide:not(.swiper-slide-active)::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  pointer-events: none;
-}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -29,7 +7,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 body {
   margin: 0 !important;
   background-color: black;
