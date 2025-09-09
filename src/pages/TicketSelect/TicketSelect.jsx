@@ -19,6 +19,7 @@ function TicketSelect() {
       state: {
         concertId: id,
         ticketId: selectedTicketId,
+        area: selectedTicket?.seatArea,
         price: selectedTicket?.price,
         quantity,
       },
