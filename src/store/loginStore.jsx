@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { register, login } from '../services/login.js';
-import api from '../services/api.js';
 export const useLoginStore = create((set,get) => ({
   // UI State
   mode: 'login',
@@ -8,7 +7,6 @@ export const useLoginStore = create((set,get) => ({
   password: '',
   confirmPassword: '',
   error: '',
-  user: null,
 
   setMode: (mode) => set({ mode }),
   setUsername: (username) => set({ username }),
@@ -25,7 +23,7 @@ export const useLoginStore = create((set,get) => ({
   // 注册API
   registerUser: async (username, password) => {
     const res = await register(username, password);
-    if (res.status === 200) {
+    if (res.status === 201) {
       return true;
     }
     get().setError(res.data.error || '注册失败');
