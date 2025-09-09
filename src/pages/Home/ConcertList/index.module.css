@@ -63,11 +63,6 @@
   overflow: hidden;
   width: 100%;
 }
-.artist {
-  font-size: 14px;
-  color: #bbb;
-  margin-bottom: 4px;
-}
 .venue {
   font-size: 16px;
   color: #e0e0e0;

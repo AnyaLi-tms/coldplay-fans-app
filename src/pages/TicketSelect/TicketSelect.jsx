@@ -12,6 +12,19 @@ function TicketSelect() {
   const { concert, fetchDetail } = useConcertDetailStore();
   const [quantity, setQuantity] = useState(1);
 
+  const handleSubmit = () => {
+    // 获取选中的票档信息
+    const selectedTicket = tickets.find((t) => t.id === selectedTicketId);
+    navigate('/ticket/payment', {
+      state: {
+        concertId: id,
+        ticketId: selectedTicketId,
+        price: selectedTicket?.price,
+        quantity,
+      },
+    });
+  };
+
   useEffect(() => {
     // 检查token
     const token = localStorage.getItem('token');
@@ -83,8 +96,12 @@ function TicketSelect() {
           </button>
           <span className={styles.qtyTip}>（单人限购4张）</span>
         </div>
-        <button className={styles.btn} disabled={!selectedTicketId}>
-          去购票
+        <button
+          className={styles.btn}
+          disabled={!selectedTicketId}
+          onClick={() => handleSubmit()}
+        >
+          提交
         </button>
       </div>
     </div>
