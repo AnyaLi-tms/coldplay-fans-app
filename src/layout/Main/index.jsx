@@ -1,6 +1,6 @@
 import Home from '../../pages/Home';
 import ConcertDetail from '../../pages/Concert/ConcertDetail';
-import Login from '../../pages/Login/login';
+import Login from '../../pages/Login';
 import TicketSelect from '../../pages/TicketSelect/TicketSelect';
 import { Routes, Route } from 'react-router-dom';
 import styles from './index.module.css';
