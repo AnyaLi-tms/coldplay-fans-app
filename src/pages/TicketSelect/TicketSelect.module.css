@@ -1,3 +1,48 @@
+.seatArea {
+  font-size: 15px;
+  color: #888;
+  margin-left: 4px;
+}
+.concertTimeInfo {
+  font-size: 15px;
+  color: #666;
+  margin: 0 0 8px 20px;
+}
+.quantityArea {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.qtyBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f7f7f7;
+  color: #222;
+  font-size: 22px;
+  border-radius: 50%;
+  margin: 0 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.qtyBtn:disabled {
+  background: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+}
+.qtyNum {
+  color: #222;
+  min-width: 24px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.qtyTip {
+  color: #888;
+  font-size: 13px;
+  margin-left: 8px;
+}
 .container {
   background: #fff;
   min-height: 100vh;
@@ -40,22 +85,15 @@
 .sessionDate {
   flex: 1;
 }
-.discountTag {
-  font-size: 13px;
-  color: #ff3eb2;
-  border: 1px solid #ff3eb2;
-  border-radius: 8px;
-  padding: 2px 8px;
-  margin-left: 10px;
-  background: #fff0fa;
-}
 .ticketList {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   margin: 0 20px;
 }
-.ticket {
+.ticket,
+.ticketActive,
+.ticketSoldOut {
   background: #f7f7f7;
   border-radius: 12px;
   padding: 18px 0 10px 0;
@@ -67,6 +105,11 @@
   cursor: pointer;
   border: 2px solid transparent;
   margin-bottom: 8px;
+  box-sizing: border-box;
+  transition:
+    border 0.2s,
+    color 0.2s,
+    background 0.2s;
 }
 .ticketActive {
   border: 2px solid #ff3eb2;
@@ -91,11 +134,6 @@
 .ticketPrice {
   font-size: 20px;
   font-weight: bold;
-}
-.finalPrice {
-  font-size: 13px;
-  color: #ff3eb2;
-  margin-top: 4px;
 }
 .btnArea {
   position: fixed;
