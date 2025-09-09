@@ -3,10 +3,10 @@ import ConcertDetail from '../../pages/Concert/ConcertDetail';
 import Login from '../../pages/Login/login';
 import TicketSelect from '../../pages/TicketSelect/TicketSelect';
 import { Routes, Route } from 'react-router-dom';
+import styles from './index.module.css';
 
 const Main = () => (
-  // 这里后续可根据路由展示不同页面
-  <div>
+  <div className={styles.main}>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/concertdetail/:id" element={<ConcertDetail />} />
