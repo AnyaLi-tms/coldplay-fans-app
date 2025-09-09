@@ -13,6 +13,7 @@ function formatDate(dateStr) {
     week: `周${weekArr[date.getDay()]}`,
     day: date.getDate(),
     month: `${date.getMonth() + 1}月`,
+    year: `${date.getFullYear()}年`,
   };
 }
 
@@ -34,7 +35,7 @@ const ConcertList = () => {
       <div>
         {loading && <div>加载中...</div>}
         {concerts.map((c) => {
-          const { week, day, month } = formatDate(c.startDate);
+          const { week, day, month, year } = formatDate(c.startDate);
           return (
             <div className={styles['card']} key={c.id}>
               {/* 日期 */}
@@ -42,6 +43,7 @@ const ConcertList = () => {
                 <div className={styles['week']}>{week}</div>
                 <div className={styles['day']}>{day}</div>
                 <div className={styles['month']}>{month}</div>
+                <div className={styles['year']}>{year}</div>
               </div>
               {/* 图片 */}
               <img src={c.imgUrl} alt={c.name} className={styles['cover']} />
