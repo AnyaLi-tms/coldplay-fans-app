@@ -2,3 +2,98 @@
   width: 67%;
   margin: 0 auto;
 }
+.card {
+  display: flex;
+  align-items: center;
+  background: #262626;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  padding: 5px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  min-height: 110px;
+  position: relative;
+}
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 56px;
+  margin-right: 18px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.week {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 2px;
+}
+.day {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1;
+}
+.month {
+  font-size: 15px;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+.cover {
+  width: 160px;
+  height: 90px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 20px;
+  flex-shrink: 0;
+  background: #111;
+}
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+.artist {
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 4px;
+}
+.venue {
+  font-size: 16px;
+  color: #e0e0e0;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+.desc {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.buyBtn {
+  background: #e53949;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  height: 38px;
+  min-width: 100px;
+  margin-left: 20px;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+.buyBtn:hover,
+.buyBtn:focus {
+  background: #c32f3d;
+  color: #fff;
+}
