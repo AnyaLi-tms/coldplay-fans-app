@@ -4,8 +4,7 @@ import api from './api';
 export const getAllConcerts = (params = {}) =>
   api.get('/concerts', { params }).then((res) => res.data);
 // 获取所有城市
-export const getAllCities = () =>
-  api.get('/concerts/cities').then((res) => res.data);
+export const getAllCities = () => api.get('/concerts/cities');
 // 获取单个演唱会详情
 export const getConcertById = (id) =>
   api.get(`/concerts/${id}`).then((res) => res.data);

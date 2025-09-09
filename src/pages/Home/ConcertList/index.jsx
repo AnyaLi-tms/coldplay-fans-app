@@ -1,9 +1,20 @@
-import { Card, Button } from 'antd';
+import { Button } from 'antd';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useConcertListStore from '../../../store/concertListStore';
 import Search from './Search';
 import styles from './index.module.css';
+
+function formatDate(dateStr) {
+  // 假设 dateStr = "2023-09-13"
+  const date = new Date(dateStr);
+  const weekArr = ['日', '一', '二', '三', '四', '五', '六'];
+  return {
+    week: `周${weekArr[date.getDay()]}`,
+    day: date.getDate(),
+    month: `${date.getMonth() + 1}月`,
+  };
+}
 
 const ConcertList = () => {
   const navigate = useNavigate();
@@ -22,41 +33,39 @@ const ConcertList = () => {
       <Search />
       <div>
         {loading && <div>加载中...</div>}
-        {concerts.map((c) => (
-          <Card key={c.id} style={{ marginBottom: 16 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <img
-                src={c.imgUrl}
-                alt={c.name}
-                style={{
-                  width: 80,
-                  height: 80,
-                  objectFit: 'cover',
-                  borderRadius: 8,
-                }}
-              />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600, fontSize: 18 }}>{c.name}</div>
-                <div>
-                  {c.startDate} {c.startTime ? `| ${c.startTime}` : ''} |{' '}
+        {concerts.map((c) => {
+          const { week, day, month } = formatDate(c.startDate);
+          return (
+            <div className={styles['card']} key={c.id}>
+              {/* 日期 */}
+              <div className={styles['date']}>
+                <div className={styles['week']}>{week}</div>
+                <div className={styles['day']}>{day}</div>
+                <div className={styles['month']}>{month}</div>
+              </div>
+              {/* 图片 */}
+              <img src={c.imgUrl} alt={c.name} className={styles['cover']} />
+              {/* 信息 */}
+              <div className={styles['info']}>
+                <div className={styles['title']}>{c.name}</div>
+                {c.description && (
+                  <div className={styles['desc']}>{c.description}</div>
+                )}
+                <div className={styles['venue']}>
                   {c.city} | {c.venue}
                 </div>
-                {c.description && (
-                  <div style={{ color: '#aaa', fontSize: 14 }}>
-                    {c.description}
-                  </div>
-                )}
               </div>
+              {/* 按钮 */}
               <Button
                 type="primary"
+                className={styles['buy-btn']}
                 onClick={() => handleBuy(c.id)}
-                style={{ height: 35 }}
               >
-                购买门票
+                {c.buttonText || '购买门票'}
               </Button>
             </div>
-          </Card>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
