@@ -169,3 +169,10 @@
   background: #c32f3d !important;
   color: #fff !important;
 }
+
+.pay-btn-disabled {
+  background: #eee !important;
+  color: #aaa !important;
+  cursor: not-allowed !important;
+  border: none !important;
+}

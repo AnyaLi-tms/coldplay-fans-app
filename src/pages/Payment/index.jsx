@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import alipayIcon from '../../assets/alipay.svg';
 import styles from './index.module.css';
-import PopUp from './components/Popup';
+import PopUp from './components/popup';
 import validateIdCard from './utils/validateIdCard';
 import { useConcertDetailStore } from '../../store/concertDetailStore';
 
+import { usePaymentStore } from '../../store/paymentStore';
 const Payment = () => {
   const location = useLocation();
-  const { concertId, ticketId, price, quantity } = location.state || {};
+  const navigate = useNavigate();
+  const { concertId, ticketId, area, price, quantity } = location.state || {};
 
   const { concert } = useConcertDetailStore();
   const [ids, setIds] = useState(Array(quantity).fill(''));
@@ -16,17 +18,59 @@ const Payment = () => {
   const [popup, setPopup] = useState({ visible: false, status: 'paying' });
 
   const total = quantity * (price || 0);
+  const { fetchBuyTicket } = usePaymentStore();
 
-  // 支付按钮点击
-  const handlePay = () => {
-    // 校验身份证
-    const errors = ids.map((id) => !validateIdCard(id));
-    setIdErrors(errors);
-    if (errors.some(Boolean)) return;
-    setPopup({ visible: true, status: 'paying' });
-    setTimeout(() => {
-      setPopup({ visible: true, status: 'success' });
-    }, 2000);
+  // 关闭弹窗时根据支付结果跳转
+  const handlePopupClose = () => {
+    setPopup({ visible: false, status: '', msg: '' });
+    if (popup.status === 'success') {
+      navigate('/');
+    } else if (popup.status === 'error') {
+      navigate(`/ticket/prices/${concertId}`);
+    }
+  };
+
+  const handlePay = async () => {
+    if (idErrors.some(Boolean)) return;
+    if (ids.some((id) => !id)) {
+      setPopup({
+        visible: true,
+        status: '',
+        msg: '请检查身份证号是否正确或重复',
+      });
+      setIdErrors(ids.map((id) => !id || !validateIdCard(id)));
+      return;
+    }
+    const hasDuplicate = new Set(ids).size !== ids.length;
+    if (hasDuplicate) {
+      setPopup({
+        visible: true,
+        status: '',
+        msg: '请检查身份证号是否正确或重复',
+      });
+      return;
+    }
+
+    setPopup({ visible: true, status: 'paying', msg: '正在支付中，请稍后...' });
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const result = await fetchBuyTicket(concertId, {
+      idNums: ids,
+      seatArea: area,
+    });
+    if (result.status === 'true') {
+      setPopup({
+        visible: true,
+        status: 'success',
+        msg: result.msg || '支付成功！',
+      });
+    } else {
+      setPopup({
+        visible: true,
+        status: 'error',
+        msg: result.msg || '支付失败',
+      });
+    }
   };
 
   // 输入身份证
@@ -42,7 +86,6 @@ const Payment = () => {
 
   return (
     <div className={styles['payment-container']}>
-      {/* 票务信息 */}
       <div className={styles['concert-section']}>
         <div className={styles['concert-title']}>{concert.name}</div>
         <div className={styles['concert-location']}>
@@ -55,7 +98,6 @@ const Payment = () => {
           ￥{price} 票档 × {quantity}张
         </div>
       </div>
-
       <div className={styles['content-container']}>
         <div className={styles['delivery-section']}>
           <div className={styles['delivery-title']}>配送信息</div>
@@ -112,7 +154,6 @@ const Payment = () => {
         </div>
       </div>
 
-      {/* 底部总价和支付按钮 */}
       <div className={styles['payment-footer']}>
         <div className={styles['total']}>
           <span
@@ -125,18 +166,26 @@ const Payment = () => {
           >
             总价:
           </span>
-          ￥{total}.00
+          ￥{total}
         </div>
-        <button className={styles['pay-btn']} onClick={handlePay}>
+        <button
+          className={`${styles['pay-btn']} ${
+            ids.some((id) => !id) || idErrors.some(Boolean)
+              ? styles['pay-btn-disabled']
+              : ''
+          }`}
+          onClick={handlePay}
+          disabled={ids.some((id) => !id) || idErrors.some(Boolean)}
+        >
           支付
         </button>
       </div>
 
-      {/* 支付弹窗 */}
       <PopUp
         visible={popup.visible}
         status={popup.status}
-        onClose={() => setPopup({ visible: false, status: 'paying' })}
+        msg={popup.msg}
+        onClose={handlePopupClose}
       />
     </div>
   );
