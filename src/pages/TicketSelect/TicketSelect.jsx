@@ -33,6 +33,7 @@ function TicketSelect() {
             <div className={styles.noticeTitle}>购票须知</div>
             <ul className={styles.noticeList}>
               <li>每个账号最多购买4张。</li>
+              <li>演唱会开始前三十日开放购票。</li>
               <li>
                 本项目支持实名制购票及入场，购票完成后观演人信息不可更改，须携带身份证等有效证件入场。
               </li>
