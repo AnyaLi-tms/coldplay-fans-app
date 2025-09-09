@@ -1,3 +1,67 @@
+/* 新增：左右两栏布局 */
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 32px;
+}
+.noticeColumn {
+  flex: 0 0 340px;
+  min-width: 300px;
+  max-width: 360px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cardsColumn {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.noticeCard {
+  background: #fafbfc;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 32px 28px 32px 28px;
+  margin-top: 40px;
+  margin-bottom: 0;
+  color: #222;
+  font-size: 16px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.noticeTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #e63946;
+}
+.noticeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.noticeList li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 14px;
+  line-height: 1.7;
+}
+.noticeList li:before {
+  content: '•';
+  color: #e63946;
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+  top: 0;
+}
 /* 选票页面样式，完全对齐 ConcertDetail 页面风格 */
 
 .container {

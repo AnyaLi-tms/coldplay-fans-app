@@ -32,17 +32,17 @@ function TicketSelect() {
           <div className={styles.noticeCard}>
             <div className={styles.noticeTitle}>购票须知</div>
             <ul className={styles.noticeList}>
+              <li>每个账号最多购买4张。</li>
               <li>
                 本项目支持实名制购票及入场，购票完成后观演人信息不可更改，须携带身份证等有效证件入场。
               </li>
               <li>入场后为站席观演，门票无对应座位。</li>
-              <li>电子票需通过身份验证入场。</li>
               <li>如需发票请在购票后1个月内申请，逾期不予受理。</li>
               <li>如遇不可抗力导致演出取消，将按主办方政策退票。</li>
             </ul>
           </div>
         </div>
-        {/* 右侧：原有三个卡片 */}
+        {/* 右侧：三个卡片 */}
         <div className={styles.cardsColumn}>
           {/* 顶部：演唱会信息卡片 */}
           <div className={styles.topCard} style={{ maxWidth: contentMaxWidth }}>
