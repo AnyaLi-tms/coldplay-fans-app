@@ -1,49 +1,53 @@
-import { Button, Input, DatePicker, Space } from 'antd';
-import { useState } from 'react';
+import { Button, Select, DatePicker } from 'antd';
+import { useState, useEffect } from 'react';
+import styles from './index.module.css';
+import useConcertListStore from '../../../../store/concertListStore';
 
 const Search = () => {
   const [search, setSearch] = useState('');
   const [dates, setDates] = useState([]);
+  const { cities, fetchCities, fetchConcerts } = useConcertListStore();
+
+  useEffect(() => {
+    fetchCities();
+  }, [fetchCities]);
+
+  const handleSearch = () => {
+    const params = {};
+    if (search) params.city = search;
+    if (dates && dates.length === 2) {
+      params.startDate = dates[0]?.format('YYYY-MM-DD');
+      params.endDate = dates[1]?.format('YYYY-MM-DD');
+    }
+    fetchConcerts(params);
+  };
+
   return (
-    <div
-      style={{
-        marginBottom: 16,
-        marginTop: 30,
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        gap: 12,
-      }}
-      size="large"
-    >
-      <Input
-        placeholder="请输入城市"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{
-          flex: 1.3,
-          minWidth: 0,
-          height: 50,
-          fontSize: 18,
-          fontWeight: 500,
-        }}
+    <div className={styles['search-row']}>
+      <Select
+        placeholder="请选择城市"
+        value={search || undefined}
+        onChange={setSearch}
+        className={styles['search-select']}
+        optionLabelProp="label"
+        options={cities.map((city) => ({
+          value: city,
+          label: <span style={{ marginLeft: 8 }}>{city}</span>,
+        }))}
+        allowClear
+        size="large"
       />
       <DatePicker.RangePicker
-        value={dates}
+        placeholder={['开始日期', '结束日期']}
+        value={dates && dates.length ? dates : undefined}
         onChange={setDates}
         size="large"
-        className="custom-range"
-        style={{ flex: 1.3, minWidth: 0 }}
+        className={`${styles['search-range']} custom-range`}
       />
       <Button
         type="primary"
-        style={{
-          flex: 0.3,
-          minWidth: 80,
-          height: 50,
-          fontSize: 18,
-          fontWeight: 500,
-        }}
+        className={styles['search-btn']}
+        onClick={handleSearch}
       >
         搜索
       </Button>

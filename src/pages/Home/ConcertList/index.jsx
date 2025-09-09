@@ -36,29 +36,29 @@ const ConcertList = () => {
         {concerts.map((c) => {
           const { week, day, month } = formatDate(c.startDate);
           return (
-            <div className={styles.card} key={c.id}>
+            <div className={styles['card']} key={c.id}>
               {/* 日期 */}
-              <div className={styles.date}>
-                <div className={styles.week}>{week}</div>
-                <div className={styles.day}>{day}</div>
-                <div className={styles.month}>{month}</div>
+              <div className={styles['date']}>
+                <div className={styles['week']}>{week}</div>
+                <div className={styles['day']}>{day}</div>
+                <div className={styles['month']}>{month}</div>
               </div>
               {/* 图片 */}
-              <img src={c.imgUrl} alt={c.name} className={styles.cover} />
+              <img src={c.imgUrl} alt={c.name} className={styles['cover']} />
               {/* 信息 */}
-              <div className={styles.info}>
-                <div className={styles.title}>{c.name}</div>
+              <div className={styles['info']}>
+                <div className={styles['title']}>{c.name}</div>
                 {c.description && (
-                  <div className={styles.desc}>{c.description}</div>
+                  <div className={styles['desc']}>{c.description}</div>
                 )}
-                <div className={styles.venue}>
+                <div className={styles['venue']}>
                   {c.city} | {c.venue}
                 </div>
               </div>
               {/* 按钮 */}
               <Button
                 type="primary"
-                className={styles.buyBtn}
+                className={styles['buy-btn']}
                 onClick={() => handleBuy(c.id)}
               >
                 {c.buttonText || '购买门票'}

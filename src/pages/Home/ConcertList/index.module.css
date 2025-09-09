@@ -79,9 +79,8 @@
   color: #aaa;
   margin-top: 2px;
 }
-
-.buyBtn {
-  background: #e53949;
+.buy-btn {
+  background: #e21836;
   border: none;
   color: #fff;
   font-weight: 500;
@@ -90,10 +89,10 @@
   min-width: 100px;
   margin-left: 20px;
   font-size: 16px;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
-.buyBtn:hover,
-.buyBtn:focus {
-  background: #c32f3d;
-  color: #fff;
+.buy-btn:hover,
+.buy-btn:focus {
+  background: #c32f3d !important;
+  color: #fff !important;
 }
