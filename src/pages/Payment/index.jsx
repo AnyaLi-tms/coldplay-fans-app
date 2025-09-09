@@ -10,7 +10,7 @@ import { usePaymentStore } from '../../store/paymentStore';
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { concertId, ticketId, area, price, quantity } = location.state || {};
+  const { concertId, area, price, quantity } = location.state || {};
 
   const { concert } = useConcertDetailStore();
   const [ids, setIds] = useState(Array(quantity).fill(''));

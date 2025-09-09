@@ -18,7 +18,6 @@ function TicketSelect() {
     navigate('/ticket/payment', {
       state: {
         concertId: id,
-        ticketId: selectedTicketId,
         area: selectedTicket?.seatArea,
         price: selectedTicket?.price,
         quantity,
