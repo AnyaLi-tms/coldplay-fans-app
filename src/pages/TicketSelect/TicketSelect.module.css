@@ -1,0 +1,127 @@
+.container {
+  background: #fff;
+  min-height: 100vh;
+  padding: 0 0 80px 0;
+}
+.sectionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 24px 0 8px 20px;
+  color: #222;
+}
+.sectionTip {
+  font-size: 13px;
+  color: #888;
+  margin-left: 8px;
+}
+.sessionList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 20px;
+}
+.session {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 17px;
+  color: #222;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+.sessionActive {
+  border: 2px solid #ff3eb2;
+  color: #ff3eb2;
+  background: #fff0fa;
+}
+.sessionDate {
+  flex: 1;
+}
+.discountTag {
+  font-size: 13px;
+  color: #ff3eb2;
+  border: 1px solid #ff3eb2;
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin-left: 10px;
+  background: #fff0fa;
+}
+.ticketList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0 20px;
+}
+.ticket {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 18px 0 10px 0;
+  width: 110px;
+  text-align: center;
+  font-size: 18px;
+  color: #222;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+  margin-bottom: 8px;
+}
+.ticketActive {
+  border: 2px solid #ff3eb2;
+  color: #ff3eb2;
+  background: #fff0fa;
+}
+.ticketSoldOut {
+  color: #bbb;
+  background: #f2f2f2;
+  cursor: not-allowed;
+  border: 2px solid #eee;
+}
+.soldOutTag {
+  font-size: 13px;
+  color: #bbb;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin-top: 6px;
+  background: #f2f2f2;
+}
+.ticketPrice {
+  font-size: 20px;
+  font-weight: bold;
+}
+.finalPrice {
+  font-size: 13px;
+  color: #ff3eb2;
+  margin-top: 4px;
+}
+.btnArea {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  padding: 16px 20px 24px 20px;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.04);
+  z-index: 10;
+}
+.btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 24px;
+  background: linear-gradient(90deg, #ff3eb2 0%, #ff7c6a 100%);
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:disabled {
+  background: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+}

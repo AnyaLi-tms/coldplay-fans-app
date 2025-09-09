@@ -1,17 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useConcertDetailStore } from '../../store/concertDetailStore';
 import styles from './ConcertDetail.module.css';
-
 function ConcertDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { concert, loading, error, fetchDetail } = useConcertDetailStore();
 
   useEffect(() => {
     fetchDetail(id);
   }, [id, fetchDetail]);
 
-  // 卡片最大宽度
   const contentMaxWidth = 1200;
 
   if (loading) {
@@ -70,6 +69,7 @@ function ConcertDetail() {
         <button
           className={isSoldOut ? `${styles.btn} ${styles.btnSold}` : styles.btn}
           disabled={!isAvailable}
+          onClick={() => navigate(`/ticket/prices/${id}`)}
         >
           {isSoldOut ? '已售罄' : '立即购票'}
         </button>
