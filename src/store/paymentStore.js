@@ -9,7 +9,6 @@ export const usePaymentStore = create((set) => ({
     set({ loading: true, error: null, result: null });
     try {
       const res = await buyTicket(concertId, data);
-      console.log(res);
       set({ result: res.data, loading: false });
       return res.data;
     } catch (err) {

@@ -53,7 +53,6 @@ const Payment = () => {
 
     setPopup({ visible: true, status: 'paying', msg: '正在支付中，请稍后...' });
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(area);
     const result = await fetchBuyTicket(concertId, {
       idNums: ids,
       seatArea: area,
