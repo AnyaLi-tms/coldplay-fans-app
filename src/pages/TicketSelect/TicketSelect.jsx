@@ -11,7 +11,8 @@ function TicketSelect() {
     useTicketSelectStore();
   const { concert, fetchDetail } = useConcertDetailStore();
   const [quantity, setQuantity] = useState(1);
-
+  const seatMapUrl = concert.seatMapUrl;
+  const contentMaxWidth = 1200;
   useEffect(() => {
     // 检查token
     const token = localStorage.getItem('token');
@@ -25,67 +26,127 @@ function TicketSelect() {
 
   return (
     <div className={styles.container}>
-      {/* 场次选择 */}
-      <div className={styles.sectionTitle}>
-        场次 <span className={styles.sectionTip}>场次时间均为演出当地时间</span>
-      </div>
-      {concert && (
-        <div className={styles.concertTimeInfo}>
-          日期：{concert.startDate} &nbsp; 演出时间：{concert.startTime}
+      <div className={styles.flexRow}>
+        {/* 左侧：购票须知 */}
+        <div className={styles.noticeColumn}>
+          <div className={styles.noticeCard}>
+            <div className={styles.noticeTitle}>购票须知</div>
+            <ul className={styles.noticeList}>
+              <li>
+                本项目支持实名制购票及入场，购票完成后观演人信息不可更改，须携带身份证等有效证件入场。
+              </li>
+              <li>入场后为站席观演，门票无对应座位。</li>
+              <li>电子票需通过身份验证入场。</li>
+              <li>如需发票请在购票后1个月内申请，逾期不予受理。</li>
+              <li>如遇不可抗力导致演出取消，将按主办方政策退票。</li>
+            </ul>
+          </div>
         </div>
-      )}
-
-      {/* 票档选择 */}
-      <div className={styles.sectionTitle}>票档</div>
-      <div className={styles.ticketList}>
-        {tickets.map((ticket) => (
-          <div
-            key={ticket.id}
-            className={
-              ticket.soldOut
-                ? styles.ticketSoldOut
-                : ticket.id === selectedTicketId
-                  ? styles.ticketActive
-                  : styles.ticket
-            }
-            onClick={() => !ticket.soldOut && selectTicket(ticket.id)}
-          >
-            <div className={styles.ticketPrice}>
-              {ticket.price}
-              {ticket.seatArea && (
-                <span className={styles.seatArea}>（{ticket.seatArea}）</span>
+        {/* 右侧：原有三个卡片 */}
+        <div className={styles.cardsColumn}>
+          {/* 顶部：演唱会信息卡片 */}
+          <div className={styles.topCard} style={{ maxWidth: contentMaxWidth }}>
+            <div className={styles.poster}>
+              {concert.imgUrl && (
+                <img
+                  src={concert.imgUrl}
+                  alt="海报"
+                  className={styles.posterImg}
+                />
               )}
             </div>
-            {ticket.soldOut && (
-              <div className={styles.soldOutTag}>缺货登记</div>
-            )}
+            <div className={styles.info}>
+              <div className={styles.title}>{concert.name}</div>
+              <div className={styles.time}>
+                {concert.startDate} {concert.startTime}
+              </div>
+              <div className={styles.location}>
+                <span>📍</span>
+                {concert.venue} {concert.city}
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
-      {/* 购票数量选择器和去购票按钮 */}
-      <div className={styles.btnArea}>
-        <div className={styles.quantityArea}>
-          <span>购票数量：</span>
-          <button
-            className={styles.qtyBtn}
-            onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            disabled={quantity <= 1}
+          {/* 中部：场次和票档卡片 */}
+          <div
+            className={styles.middleCard}
+            style={{ maxWidth: contentMaxWidth }}
           >
-            -
-          </button>
-          <span className={styles.qtyNum}>{quantity}</span>
-          <button
-            className={styles.qtyBtn}
-            onClick={() => setQuantity((q) => Math.min(4, q + 1))}
-            disabled={quantity >= 4}
+            <div className={styles.sectionTitle}>
+              场次{' '}
+              <span className={styles.sectionTip}>
+                场次时间均为演出当地时间
+              </span>
+            </div>
+            {concert && (
+              <div className={styles.concertTimeInfo}>
+                日期：{concert.startDate} &nbsp; 演出时间：{concert.startTime}
+              </div>
+            )}
+            <div className={styles.sectionTitle}>票档</div>
+            <div className={styles.ticketList}>
+              {tickets.map((ticket) => (
+                <div
+                  key={ticket.id}
+                  className={
+                    ticket.soldOut
+                      ? styles.ticketSoldOut
+                      : ticket.id === selectedTicketId
+                        ? styles.ticketActive
+                        : styles.ticket
+                  }
+                  onClick={() => !ticket.soldOut && selectTicket(ticket.id)}
+                >
+                  <div className={styles.ticketPrice}>
+                    {ticket.price}
+                    {ticket.seatArea && (
+                      <span className={styles.seatArea}>
+                        （{ticket.seatArea}）
+                      </span>
+                    )}
+                  </div>
+                  {ticket.soldOut && (
+                    <div className={styles.soldOutTag}>缺货登记</div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className={styles.seatmap}>
+              <img
+                src={seatMapUrl}
+                alt="座位图"
+                className={styles.seatmapImg}
+              />
+            </div>
+          </div>
+          {/* 底部：购票按钮和数量卡片 */}
+          <div
+            className={styles.bottomCard}
+            style={{ maxWidth: contentMaxWidth }}
           >
-            +
-          </button>
-          <span className={styles.qtyTip}>（单人限购4张）</span>
+            <div className={styles.quantityArea}>
+              <span>购票数量：</span>
+              <button
+                className={styles.qtyBtn}
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                disabled={quantity <= 1}
+              >
+                -
+              </button>
+              <span className={styles.qtyNum}>{quantity}</span>
+              <button
+                className={styles.qtyBtn}
+                onClick={() => setQuantity((q) => Math.min(4, q + 1))}
+                disabled={quantity >= 4}
+              >
+                +
+              </button>
+              <span className={styles.qtyTip}>（单人限购4张）</span>
+            </div>
+            <button className={styles.btn} disabled={!selectedTicketId}>
+              去购票
+            </button>
+          </div>
         </div>
-        <button className={styles.btn} disabled={!selectedTicketId}>
-          去购票
-        </button>
       </div>
     </div>
   );
