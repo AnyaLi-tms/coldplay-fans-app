@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import alipayIcon from '../../assets/alipay.svg';
 import styles from './index.module.css';
-import PopUp from './components/popup';
+import PopUp from './components/Popup';
 import validateIdCard from './utils/validateIdCard';
 import { useConcertDetailStore } from '../../store/concertDetailStore';
 
