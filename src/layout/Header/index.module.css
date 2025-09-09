@@ -1,11 +1,14 @@
 .header {
+  /* 不需要 sticky，直接用 flex 布局即可 */
+  position: relative;
   background-color: #2a2a2a;
   width: 100%;
   display: flex;
   align-items: center;
   gap: 16px;
+  height: 64px; /* 建议给定固定高度 */
+  z-index: 10;
 }
-
 .tabs-container {
   display: flex;
   align-items: center;
