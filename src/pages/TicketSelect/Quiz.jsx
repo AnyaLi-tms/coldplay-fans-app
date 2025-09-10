@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Quiz.module.css';
 
-const QuizModal = ({
+const Quiz = ({
   visible,
   quizList,
   quizValues,
@@ -24,29 +24,31 @@ const QuizModal = ({
         <div style={{ maxHeight: '55vh', overflowY: 'auto', marginTop: 8 }}>
           {quizList.map((q, idx) => (
             <div
-              key={idx}
+              key={q.questionId || idx}
               className={styles.questionBlock}
               style={{ marginBottom: 12 }}
             >
               <div
                 className={styles.questionText}
-              >{`Q${idx + 1}. ${q.question}`}</div>
+              >{`Q${idx + 1}. ${q.questionText || q.question}`}</div>
               <div className={styles.optionsBlock}>
                 {q.options.map((opt, oidx) => (
                   <div
-                    key={opt.value}
+                    key={opt.option || opt.value || oidx}
                     className={
-                      quizValues[idx] === opt.value
+                      quizValues[idx] === (opt.option || opt.value)
                         ? styles.optionActive
                         : styles.option
                     }
-                    onClick={() => onChange(idx, opt.value)}
+                    onClick={() => onChange(idx, opt.option || opt.value)}
                   >
                     <span className={styles.optionLabel}>
                       {String.fromCharCode(65 + oidx)}
                     </span>
-                    <span className={styles.optionText}>{opt.label}</span>
-                    {quizValues[idx] === opt.value && (
+                    <span className={styles.optionText}>
+                      {opt.description || opt.label}
+                    </span>
+                    {quizValues[idx] === (opt.option || opt.value) && (
                       <span className={styles.check}>✔</span>
                     )}
                   </div>
@@ -67,4 +69,4 @@ const QuizModal = ({
   );
 };
 
-export default QuizModal;
+export default Quiz;

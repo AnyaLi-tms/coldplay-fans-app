@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTicketSelectStore } from '../../store/ticketSelectStore';
 import { useConcertDetailStore } from '../../store/concertDetailStore';
 import styles from './TicketSelect.module.css';
-import QuizModal from './Quiz';
+import Quiz from './Quiz';
+import { useQuizStore } from '../../store/quizStore';
 import { useRef } from 'react';
 
 function TicketSelect() {
@@ -14,86 +15,37 @@ function TicketSelect() {
   const { concert, fetchDetail } = useConcertDetailStore();
   const [quantity, setQuantity] = useState(1);
   const seatMapUrl = concert.seatMapUrl;
-  // 答题弹窗相关
-  const [quizVisible, setQuizVisible] = useState(false);
-  const [quizValue, setQuizValue] = useState('');
-  const [quizWarning, setQuizWarning] = useState('');
-  // 多题支持
-  const quizList = [
-    {
-      question: '🎻🌻🎻🌻🎻 樂器的數量有多少?',
-      options: [
-        { value: 'A', label: '1' },
-        { value: 'B', label: '5' },
-        { value: 'C', label: '3' },
-        { value: 'D', label: '2' },
-        { value: 'E', label: '4' },
-      ],
-      answer: 'A',
-    },
-    {
-      question: '🌻🎻🌻🎻🌻 樂器的數量有多少?',
-      options: [
-        { value: 'A', label: '2' },
-        { value: 'B', label: '4' },
-        { value: 'C', label: '1' },
-        { value: 'D', label: '3' },
-      ],
-      answer: 'A',
-    },
-    {
-      question: '🎻🎻🌻🌻🎻 樂器的數量有多少?',
-      options: [
-        { value: 'A', label: '3' },
-        { value: 'B', label: '2' },
-        { value: 'C', label: '4' },
-        { value: 'D', label: '1' },
-      ],
-      answer: 'A',
-    },
-    {
-      question: '🌻🌻🎻🌻🎻 樂器的數量有多少?',
-      options: [
-        { value: 'A', label: '2' },
-        { value: 'B', label: '3' },
-        { value: 'C', label: '5' },
-        { value: 'D', label: '1' },
-      ],
-      answer: 'A',
-    },
-    {
-      question: '🎻🌻🌻🎻🌻 樂器的數量有多少?',
-      options: [
-        { value: 'A', label: '1' },
-        { value: 'B', label: '2' },
-        { value: 'C', label: '3' },
-        { value: 'D', label: '4' },
-      ],
-      answer: 'A',
-    },
-  ];
-  // 记录每题答案
-  const [quizValues, setQuizValues] = useState(Array(quizList.length).fill(''));
+  // 答题store
+  const {
+    quizList,
+    quizValues,
+    quizLoading,
+    quizWarning,
+    quizVisible,
+    setQuizValue,
+    setQuizWarning,
+    setQuizVisible,
+    loadQuiz,
+    resetQuiz,
+    checkAnswers,
+  } = useQuizStore();
   const [quizErrorModal, setQuizErrorModal] = useState(false);
   const quizErrorTimer = useRef();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    await loadQuiz();
     setQuizVisible(true);
     setQuizWarning('');
-    setQuizValues(Array(quizList.length).fill(''));
+    resetQuiz();
   };
   const handleQuizChange = (idx, val) => {
-    setQuizValues((prev) => {
-      const arr = [...prev];
-      arr[idx] = val;
-      return arr;
-    });
+    setQuizValue(idx, val);
     setQuizWarning('');
   };
-  const handleQuizSubmit = () => {
-    // 检查所有题目
-    const wrong = quizList.findIndex((q, idx) => quizValues[idx] !== q.answer);
-    if (wrong !== -1) {
+  const handleQuizSubmit = async () => {
+    // 后端校验答案
+    const res = await checkAnswers();
+    if (!res) {
       setQuizErrorModal(true);
       quizErrorTimer.current = setTimeout(() => {
         setQuizErrorModal(false);
@@ -265,7 +217,7 @@ function TicketSelect() {
         </div>
       </div>
       {/* 答题弹窗 */}
-      <QuizModal
+      <Quiz
         visible={quizVisible}
         quizList={quizList}
         quizValues={quizValues}
@@ -273,6 +225,7 @@ function TicketSelect() {
         onSubmit={handleQuizSubmit}
         onClose={handleQuizClose}
         warning={quizWarning}
+        loading={quizLoading}
       />
       {/* 答案错误弹窗 */}
       {quizErrorModal && (
