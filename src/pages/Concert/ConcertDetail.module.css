@@ -111,7 +111,8 @@
 }
 .seatmapImg {
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
+  max-height: 550px;
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
