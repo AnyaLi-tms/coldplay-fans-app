@@ -36,7 +36,7 @@ export const useMerchandiseStore = create((set, get) => ({
     set({ loading: true, error: null });
     try {
       const res = await loadMerchandiseOrders();
-      set({ merchandiseOrders: res.data, loading: false });
+      set({ merchandiseOrders: res, loading: false });
     } catch (err) {
       set({ error: err, loading: false });
     }

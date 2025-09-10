@@ -8,7 +8,7 @@ export const fetchMerchandiseList = (keyword = '') =>
   });
 
 export const loadMerchandiseOrders = () =>
-  api.get('/myMerchandise').then((res) => res.data);
+  api.get('/merchandises/myMerchandise').then((res) => res.data);
 
 export const buyMerchandise = async (data) =>
   api.put('/merchandises/buyMerchandise', data);

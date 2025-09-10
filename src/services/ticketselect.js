@@ -17,4 +17,4 @@ export async function fetchTicketPrices(concertId) {
 
 // 获取用户的票务订单
 export const loadTicketOrders = () =>
-  api.get('/myTicket').then((res) => res.data);
+  api.get('/ticket/myTicket').then((res) => res.data);
