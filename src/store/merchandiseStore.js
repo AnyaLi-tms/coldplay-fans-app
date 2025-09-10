@@ -1,17 +1,45 @@
 import { create } from 'zustand';
-import { fetchMerchandiseList } from '../services/merchandise';
+import {
+  fetchMerchandiseList,
+  loadMerchandiseOrders,
+  buyMerchandise,
+} from '../services/merchandise';
 
-const useMerchandiseStore = create((set) => ({
-  list: [],
+export const useMerchandiseStore = create((set, get) => ({
+  merchandiseOrders: [],
+  merchandise: [],
   loading: false,
-  keyword: '',
-  async fetchList(keyword = '') {
-    set({ loading: true, keyword });
-    const res = await fetchMerchandiseList(keyword);
-    set({ list: res, loading: false });
+  error: null,
+
+  fetchMerchandise: async () => {
+    set({ loading: true, error: null });
+    try {
+      const res = await fetchMerchandiseList();
+      set({ merchandise: res.data, loading: false });
+    } catch (err) {
+      set({ error: err, loading: false });
+    }
   },
-  setKeyword(keyword) {
-    set({ keyword });
+
+  fetchBuyMerchandise: async (data) => {
+    set({ loading: true, error: null });
+    try {
+      const res = await buyMerchandise(data);
+      set({ merchandiseOrders: res.data, loading: false });
+    } catch (err) {
+      set({ error: err.response?.data || err.message, loading: false });
+      return err.response?.data || { status: 'false', msg: '购买周边失败' };
+    }
+  },
+
+  loadMerchandiseOrders: async () => {
+    set({ loading: true, error: null });
+    try {
+      const res = await loadMerchandiseOrders();
+      set({ merchandiseOrders: res.data, loading: false });
+    } catch (err) {
+      set({ error: err, loading: false });
+    }
   },
 }));
 

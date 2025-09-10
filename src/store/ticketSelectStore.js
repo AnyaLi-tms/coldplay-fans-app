@@ -1,7 +1,12 @@
 import { create } from 'zustand';
-import { fetchTicketPrices, fetchSessions } from '../services/ticketselect';
+import {
+  fetchTicketPrices,
+  fetchSessions,
+  loadTicketOrders,
+} from '../services/ticketselect';
 
 export const useTicketSelectStore = create((set, get) => ({
+  ticketOrders: [],
   tickets: [],
   selectedTicketId: null,
   selectSession: (sessionId) => {
@@ -31,5 +36,15 @@ export const useTicketSelectStore = create((set, get) => ({
 
   selectTicket: (ticketId) => {
     set({ selectedTicketId: ticketId });
+  },
+
+  loadTicketOrders: async () => {
+    set({ loading: true, error: null });
+    try {
+      const res = await loadTicketOrders();
+      set({ ticketOrders: res.data, loading: false });
+    } catch (err) {
+      set({ error: err, loading: false });
+    }
   },
 }));
