@@ -29,7 +29,7 @@ const User = () => {
           if (item && item.onClick) item.onClick();
         },
       }}
-      trigger={['click']}
+      trigger={['hover']}
     >
       <a onClick={(e) => e.preventDefault()}>
         <Space>我的</Space>
