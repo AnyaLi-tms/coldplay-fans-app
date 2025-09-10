@@ -1,0 +1,159 @@
+/* 提取自 LoginBox.jsx 的样式 */
+.pointer {
+  cursor: pointer;
+}
+.icon-label-row {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+}
+.icon {
+  font-size: 20px;
+  margin-right: 6px;
+}
+.label {
+  margin-right: 8px;
+}
+.btn-group-center {
+  margin-top: 24px;
+  text-align: center;
+}
+/* 提取自 LoginBox.jsx 的表单行样式 */
+.form-row-flex-center {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.error-float-global-ref {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgb(229 57 53);
+  color: rgb(255 255 255);
+  padding: 14px 38px;
+  border-radius: 10px;
+  font-size: 1.15em;
+  box-shadow: 0 2px 12px #e0e0e0;
+  z-index: 9999;
+  text-align: center;
+  min-width: 200px;
+  margin-top: 18px;
+  opacity: 0.75;
+  animation: fadeInOut 3s linear;
+}
+.logo {
+  width: 100%;
+  font-size: 5rem;
+  letter-spacing: 3px;
+  font-family: 'Pacifico', 'Brush Script MT', cursive, Arial;
+  /*text-shadow:
+    2px 2px 6px #e21836,
+    0 0 10px #fff;*/
+  line-height: 1.8;
+  color: #e21836;
+  text-align: center;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.96;
+  }
+
+  90% {
+    opacity: 0.96;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.login-container-ref {
+  max-width: 420px;
+  margin: 60px auto;
+  font-size: 1.2rem;
+}
+
+.login-tabs-labels-ref {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 1.3rem;
+  margin-bottom: 24px;
+}
+
+.login-tabs-labels-ref span {
+  color: #888;
+  font-weight: bold;
+  padding-bottom: 6px;
+}
+
+.login-tabs-labels-ref .active {
+  color: #e53949;
+  border-bottom: 2px solid #e53949;
+}
+
+.login-card-ref {
+  background: #292727;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #e0e0e0;
+  padding: 32px 32px 24px;
+  position: relative;
+}
+
+.login-form-ref {
+  width: 100%;
+}
+
+.form-row-ref {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: #fafbfc;
+}
+
+.form-row-ref label {
+  min-width: 90px;
+  margin-bottom: 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.form-row-ref input {
+  flex: 1;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.btn-group-ref {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* 按钮样式 */
+.main-btn-ref {
+  width: 40%;
+  padding: 5px;
+  background: #e53949;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  display: block; /* 确保按钮是块级元素 */
+  margin: 0 auto; /* 上下 margin 为 0，左右 margin 自动 */
+}
+
