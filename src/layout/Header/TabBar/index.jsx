@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 
 const items = [
   { key: 'home', label: '主页', path: '/' },
-  { key: 'goods', label: '周边', path: '/goods' },
+  { key: 'merchandise', label: '周边', path: '/merchandise' },
 ];
 
 const TabBar = () => (
