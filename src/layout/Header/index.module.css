@@ -3,8 +3,10 @@
   top: 0;
   z-index: 1;
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   background-color: #2a2a2a;
-  max-width: 1820px;
+  height: 64px;
+  padding: 0 50px;
 }
