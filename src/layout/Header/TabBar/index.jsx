@@ -10,14 +10,15 @@ const items = [
 const TabBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const selectedKey = items.find(
+    (item) => item.path === location.pathname,
+  )?.key;
   return (
     <Menu
       className={styles.tabbar}
       theme="dark"
       mode="horizontal"
-      selectedKeys={[
-        items.find((item) => item.path === location.pathname)?.key || 'home',
-      ]}
+      selectedKeys={selectedKey ? [selectedKey] : []}
       items={items.map((item) => ({
         ...item,
         onClick: () => navigate(item.path),

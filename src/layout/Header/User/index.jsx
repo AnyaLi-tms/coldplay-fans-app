@@ -1,14 +1,18 @@
 import styles from './index.module.css';
 import { Dropdown, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
 
 const User = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const items = [
     {
       key: 'order',
       label: '我的订单',
+      onClick: () => {
+        navigate('/order');
+      },
     },
     {
       key: 'logout',
@@ -19,6 +23,7 @@ const User = () => {
       },
     },
   ];
+  const isActive = location.pathname === '/order';
   return (
     <Dropdown
       className={styles.user}
@@ -31,7 +36,10 @@ const User = () => {
       }}
       trigger={['hover']}
     >
-      <a onClick={(e) => e.preventDefault()}>
+      <a
+        onClick={(e) => e.preventDefault()}
+        className={isActive ? styles.active : ''}
+      >
         <Space>我的</Space>
       </a>
     </Dropdown>
