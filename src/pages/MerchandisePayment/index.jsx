@@ -6,17 +6,17 @@ import PopUp from '../Payment/components/Popup';
 import validateIdCard from '../Payment/utils/validateIdCard';
 import { useMerchandisePaymentStore } from '../../store/merchandisePayment';
 import { usePaymentStore } from '../../store/paymentStore';
+import { submitMerchandisePayment } from '../../services/merchandisePayment';
 const MerchandisePayment = () => {
-
-
   const location = useLocation();
-  const { concertId, area,} = location.state || {};
-  const { merchandiseInfo} = useMerchandisePaymentStore();
-  const [count,setCount] = useState(1);
+  const { merchandiseId } = location.state || {};
+  const { merchandiseInfo, error, getMerchandiseInfo, setError } =
+    useMerchandisePaymentStore();
+  const [count, setCount] = useState(1);
 
-  const [phone,setPhone] = useState('');
-  const [address,setAddress] = useState('');
-  const [recipient,setRecipient] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [recipient, setRecipient] = useState('');
   const [popup, setPopup] = useState({ visible: false, status: 'paying' });
   const discount = 0.2 * merchandiseInfo.price; // 20% 折扣
   const transformPrice = 5;
@@ -24,7 +24,9 @@ const MerchandisePayment = () => {
 
   // 检查收件信息是否为空
   const checkInfo = () => {
-    return recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== '';
+    return (
+      recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== ''
+    );
   };
   // 检查本地token
   const checkLogin = () => {
@@ -33,22 +35,33 @@ const MerchandisePayment = () => {
       navigate('/login');
     }
   };
+  //检查手机号格式
+  const validatePhone = (phone) => {
+    const phoneRegex = /^1[3-9]\d{9}$/;
+    return phoneRegex.test(phone);
+  };
 
-
-  useEffect(() => {
-    checkLogin();
-    // ...existing code...
-  }, []);
   const updateAmount = (e) => {
-    const action = e.target.textContent;
-    if (action === '+') {
+    const value = e.target.innerText;
+    if (value === '+') {
       setCount(count + 1);
     } else {
       setCount(count > 1 ? count - 1 : 1);
     }
-
-    
   };
+  const handleError = () => {
+    if (error) {
+      setPopup({ visible: true, status: 'error', msg: error });
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+    const msg = getMerchandiseInfo(merchandiseId);
+    setError(msg);
+    handleError();
+    // ...existing code...
+  }, []);
   const { fetchBuyTicket } = usePaymentStore();
 
   // 关闭弹窗时根据支付结果跳转
@@ -57,48 +70,41 @@ const MerchandisePayment = () => {
     if (popup.status === 'success') {
       navigate('/');
     } else if (popup.status === 'error') {
-      navigate(`/ticket/prices/${concertId}`);
+      navigate('/merchandise');
     }
   };
 
   const handlePay = async () => {
-    if (idErrors.some(Boolean)) return;
-    if (ids.some((id) => !id)) {
-      setPopup({
-        visible: true,
-        status: '',
-        msg: '请检查身份证号是否正确或重复',
-      });
-      setIdErrors(ids.map((id) => !id || !validateIdCard(id)));
+    if (!checkInfo()) {
+      setPopup({ visible: true, status: '', msg: '请填写完整的收件信息' });
       return;
     }
-    const hasDuplicate = new Set(ids).size !== ids.length;
-    if (hasDuplicate) {
+    if (!validatePhone(phone)) {
       setPopup({
         visible: true,
         status: '',
-        msg: '请检查身份证号是否正确或重复',
+        msg: '请检查手机号是否正确',
       });
       return;
     }
 
     setPopup({ visible: true, status: 'paying', msg: '正在支付中，请稍后...' });
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    const result = await fetchBuyTicket(concertId, {
-      idNums: ids,
-      seatArea: area,
+    const result = await submitMerchandisePayment({
+      merchandiseId: merchandiseInfo.id,
+      quantity: count,
     });
-    if (result.status === 'true') {
+    if (result.Status === 200) {
       setPopup({
         visible: true,
         status: 'success',
-        msg: result.msg || '支付成功！',
+        msg: result.data.msg || '支付成功！',
       });
     } else {
       setPopup({
         visible: true,
         status: 'error',
-        msg: result.msg || '支付失败',
+        msg: result.data.msg || '支付失败',
       });
     }
   };
@@ -120,12 +126,8 @@ const MerchandisePayment = () => {
           </div>
         </div>
 
-        <div className={styles['ticket-info']}>
-          ￥{merchandiseInfo.price} 
-        </div>
-        <div>
-            
-        </div>
+        <div className={styles['ticket-info']}>￥{merchandiseInfo.price}</div>
+        <div></div>
       </div>
       <div className={styles['content-container']}>
         <div className={styles['logistics-section']}>
@@ -195,9 +197,7 @@ const MerchandisePayment = () => {
           </div>
           <div className={styles['summary-row']}>
             <span>优惠</span>
-            <span style={{ color: '#f00' }}>
-              -￥{discount.toFixed(2)}
-            </span>
+            <span style={{ color: '#f00' }}>-￥{discount.toFixed(2)}</span>
           </div>
           <div className={styles['summary-row']}>
             <span>合计</span>
@@ -213,7 +213,7 @@ const MerchandisePayment = () => {
               <span className={styles['delivery-chunk']}>电子发票</span>
             </div>
             <span className={styles['delivery-value']}>
-              支付成功后，无需取票，前往我的查看订单
+              支付成功后，前往我的订单查看
             </span>
           </div>
         </div>
