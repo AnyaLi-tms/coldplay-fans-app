@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 import { register, login } from '../services/login.js';
-
-export const useLoginStore = create((set) => ({
+export const useLoginStore = create((set, get) => ({
   // UI State
   mode: 'login',
   username: '',
   password: '',
   confirmPassword: '',
   error: '',
-  user: null,
 
   setMode: (mode) => set({ mode }),
   setUsername: (username) => set({ username }),
@@ -25,22 +23,21 @@ export const useLoginStore = create((set) => ({
   // 注册API
   registerUser: async (username, password) => {
     const res = await register(username, password);
-    if (res.success) {
-      set({ user: res.data });
+    if (res.status === 201) {
       return true;
     }
-    set({ error: res?.message || '注册失败' });
+    get().setError(res.data.error || '注册失败');
+    console.log(get().error);
     return false;
   },
 
   // 登录API
   loginUser: async (username, password) => {
     const res = await login(username, password);
-    if (res.success) {
-      set({ user: res.data });
+    if (res.status === 200) {
       return true;
     }
-    set({ error: res?.message || '登录失败' });
+    get().setError(res.data.msg || '登录失败');
     return false;
   },
 }));

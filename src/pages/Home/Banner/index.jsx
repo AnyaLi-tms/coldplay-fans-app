@@ -12,7 +12,7 @@ const Banner = () => {
 
   return (
     <div className={styles.banner}>
-      <Carousel autoplay>
+      <Carousel autoplay arrows>
         {loading && <div>加载中...</div>}
         {banners.map((b) => (
           <div className={styles['banner-item']} key={b.id || b.img}>

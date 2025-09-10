@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLoginStore } from '../../store/loginStore.jsx';
-import '../../styles/login.css';
 import { useNavigate } from 'react-router-dom';
+import styles from './index.module.css';
 export default function Login() {
   const {
     validatePassword,
@@ -26,6 +26,20 @@ export default function Login() {
     }
   }, [error]);
 
+  const switchToRegister = async (e) => {
+    setMode('register');
+    setError('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
+  const switchToLogin = async (e) => {
+    setMode('login');
+    setError('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!username) {
@@ -44,6 +58,7 @@ export default function Login() {
     setError('');
     // 调用注册API
     const res = await registerUser(username, password);
+    console.log(res);
     if (res) {
       // 注册成功，切换到登录模式并自动填入用户名和密码，触发登录
       setMode('login');
@@ -53,7 +68,7 @@ export default function Login() {
         setPassword(password);
       }, 100);
     } else {
-      setError(error || '注册失败');
+      console.log(error);
     }
   };
 
@@ -67,8 +82,8 @@ export default function Login() {
     setError('');
     // 调用登录API
     const res = await loginUser(username, password);
+    console.log(res);
     if (!res) {
-      setError(error || '登录失败');
       return;
     }
     // 登录成功，返回上一页
@@ -78,38 +93,28 @@ export default function Login() {
 
   return (
     <>
-      {error && <div className="error-float-global-ref">{error}</div>}
-      <div className="login-container-ref">
-        <div className="login-tabs-labels-ref">
+      {error && <div className={styles['error-float-global-ref']}>{error}</div>}
+      <div className={styles['login-container-ref']}>
+        <div className={styles['login-tabs-labels-ref']}>
           <span
-            className={mode === 'login' ? 'active' : ''}
+            className={mode === 'login' ? styles['active'] : ''}
             style={{ cursor: 'pointer' }}
-            onClick={() => {
-              setMode('login');
-              setError('');
-              setPassword('');
-              setConfirmPassword('');
-            }}
+            onClick={switchToLogin}
           >
             密码登录
           </span>
           <span
-            className={mode === 'register' ? 'active' : ''}
+            className={mode === 'register' ? styles['active'] : ''}
             style={{ cursor: 'pointer' }}
-            onClick={() => {
-              setMode('register');
-              setError('');
-              setPassword('');
-              setConfirmPassword('');
-            }}
+            onClick={switchToRegister}
           >
             注册
           </span>
         </div>
-        <div className="login-card-ref">
+        <div className={styles['login-card-ref']}>
           {mode === 'login' ? (
-            <form onSubmit={handleLogin} className="login-form-ref">
-              <div className="form-row-ref">
+            <form onSubmit={handleLogin} className={styles['login-form-ref']}>
+              <div className={styles['form-row-ref']}>
                 <label>用户名</label>
                 <input
                   type="text"
@@ -119,7 +124,7 @@ export default function Login() {
                   required
                 />
               </div>
-              <div className="form-row-ref">
+              <div className={styles['form-row-ref']}>
                 <label>密码</label>
                 <input
                   type="password"
@@ -129,15 +134,18 @@ export default function Login() {
                   required
                 />
               </div>
-              <div className="btn-group-ref">
-                <button type="submit" className="main-btn-ref">
+              <div className={styles['btn-group-ref']}>
+                <button type="submit" className={styles['main-btn-ref']}>
                   登录
                 </button>
               </div>
             </form>
           ) : (
-            <form onSubmit={handleRegister} className="login-form-ref">
-              <div className="form-row-ref">
+            <form
+              onSubmit={handleRegister}
+              className={styles['login-form-ref']}
+            >
+              <div className={styles['form-row-ref']}>
                 <label>用户名</label>
                 <input
                   type="text"
@@ -147,7 +155,7 @@ export default function Login() {
                   required
                 />
               </div>
-              <div className="form-row-ref">
+              <div className={styles['form-row-ref']}>
                 <label>密码</label>
                 <input
                   type="password"
@@ -157,7 +165,7 @@ export default function Login() {
                   required
                 />
               </div>
-              <div className="form-row-ref">
+              <div className={styles['form-row-ref']}>
                 <label>确认密码</label>
                 <input
                   type="password"
@@ -167,8 +175,8 @@ export default function Login() {
                   required
                 />
               </div>
-              <div className="btn-group-ref">
-                <button type="submit" className="main-btn-ref">
+              <div className={styles['btn-group-ref']}>
+                <button type="submit" className={styles['main-btn-ref']}>
                   注册
                 </button>
               </div>

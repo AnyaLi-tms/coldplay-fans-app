@@ -1,5 +1,18 @@
+html,
+body,
 #root {
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  overflow: hidden;
 }
