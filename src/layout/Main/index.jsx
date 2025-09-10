@@ -3,6 +3,7 @@ import ConcertDetail from '../../pages/Concert/ConcertDetail';
 import Login from '../../pages/Login';
 import TicketSelect from '../../pages/TicketSelect/TicketSelect';
 import Payment from '../../pages/Payment';
+import Order from '../../pages/Order/Order';
 import Merchandise from '../../pages/Merchandise/Merchandise';
 import { Routes, Route } from 'react-router-dom';
 import styles from './index.module.css';
@@ -16,6 +17,7 @@ const Main = () => (
       <Route path="/ticket/prices/:id" element={<TicketSelect />} />
       <Route path="/ticket/payment" element={<Payment />} />
       <Route path="/merchandise" element={<Merchandise />} />
+      <Route path="/order" element={<Order />} />
     </Routes>
   </div>
 );

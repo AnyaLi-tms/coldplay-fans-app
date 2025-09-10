@@ -14,3 +14,7 @@ export async function fetchTicketPrices(concertId) {
     id: `t${idx + 1}`,
   }));
 }
+
+// 获取用户的票务订单
+export const loadTicketOrders = () =>
+  api.get('/myTicket').then((res) => res.data);
