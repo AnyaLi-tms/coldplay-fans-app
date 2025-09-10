@@ -1,9 +1,9 @@
+import api from './api';
 // 获取场次列表
 export async function fetchSessions(concertId) {
   const res = await api.get(`/concerts/${concertId}`);
   return res.data.sessions || [];
 }
-import api from './api';
 
 // 获取票档列表
 export async function fetchTicketPrices(concertId) {

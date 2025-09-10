@@ -3,7 +3,7 @@ import styles from './index.module.css';
 
 const items = [
   { key: 'home', label: '主页', path: '/' },
-  { key: 'goods', label: '周边', path: '/goods' },
+  { key: 'merchandise', label: '周边', path: '/merchandise' },
   { key: 'user', label: '我的', path: '/user' },
 ];
 
