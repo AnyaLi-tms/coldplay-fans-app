@@ -9,6 +9,10 @@
 .ant-menu-item-selected {
   background-color: #e21836 !important;
 }
+.ant-menu-item {
+  padding: 0 16px !important;
+  border-bottom: none !important;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
