@@ -1,15 +1,9 @@
 .header {
-  position: relative;
-  background-color: #2a2a2a;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
-  height: 64px;
-  z-index: 10;
-}
-.tabs-container {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  background-color: #2a2a2a;
 }
