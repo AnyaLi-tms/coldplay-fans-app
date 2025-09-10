@@ -3,20 +3,20 @@ import styles from './Merchandise.module.css';
 import useMerchandiseStore from '../../store/merchandiseStore';
 
 function Merchandise() {
-  const { list, loading, keyword, fetchList, setKeyword } =
+  const { merchandise, loading, error, fetchMerchandise } =
     useMerchandiseStore();
   const [searchVal, setSearchVal] = React.useState('');
 
   useEffect(() => {
-    fetchList();
+    fetchMerchandise();
   }, []);
 
+  // 搜索功能实现
   const handleSearch = (e) => {
     e.preventDefault();
-    setKeyword(searchVal);
-    fetchList(searchVal);
+    fetchMerchandise(searchVal);
   };
-
+  console.log('merchandise:', merchandise);
   return (
     <div className={styles.merchPage}>
       <form className={styles.searchBar} onSubmit={handleSearch}>
@@ -36,7 +36,7 @@ function Merchandise() {
         </div>
       ) : (
         <div className={styles.grid}>
-          {list.map((item) => (
+          {(merchandise || []).map((item) => (
             <div className={styles.card} key={item.id}>
               <img className={styles.img} src={item.imgUrl} alt={item.name} />
               <div className={styles.name}>{item.name}</div>

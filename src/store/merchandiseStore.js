@@ -11,11 +11,11 @@ export const useMerchandiseStore = create((set, get) => ({
   loading: false,
   error: null,
 
-  fetchMerchandise: async () => {
+  fetchMerchandise: async (keyword = '') => {
     set({ loading: true, error: null });
     try {
-      const res = await fetchMerchandiseList();
-      set({ merchandise: res.data, loading: false });
+      const list = await fetchMerchandiseList(keyword);
+      set({ merchandise: list, loading: false });
     } catch (err) {
       set({ error: err, loading: false });
     }
