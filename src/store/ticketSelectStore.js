@@ -42,7 +42,7 @@ export const useTicketSelectStore = create((set, get) => ({
     set({ loading: true, error: null });
     try {
       const res = await loadTicketOrders();
-      set({ ticketOrders: res.data, loading: false });
+      set({ ticketOrders: res, loading: false });
     } catch (err) {
       set({ error: err, loading: false });
     }
