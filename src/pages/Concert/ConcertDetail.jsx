@@ -27,6 +27,7 @@ function ConcertDetail() {
   const seatMapUrl = concert.seatMapUrl;
   const isAvailable = concert.status === 'available';
   const isSoldOut = concert.status === 'sold';
+  const isUnreleased = concert.status === 'unreleased';
 
   return (
     <div className={styles.container}>
@@ -67,11 +68,17 @@ function ConcertDetail() {
       {/* 购票按钮 */}
       <div className={styles.btnArea} style={{ maxWidth: contentMaxWidth }}>
         <button
-          className={isSoldOut ? `${styles.btn} ${styles.btnSold}` : styles.btn}
+          className={
+            isSoldOut
+              ? `${styles.btn} ${styles.btnSold}`
+              : isUnreleased
+                ? `${styles.btn} ${styles.btnUnreleased || ''}`
+                : styles.btn
+          }
           disabled={!isAvailable}
           onClick={() => navigate(`/ticket/prices/${id}`)}
         >
-          {isSoldOut ? '已售罄' : '立即购票'}
+          {isSoldOut ? '已售罄' : isUnreleased ? '未开售' : '立即购票'}
         </button>
       </div>
     </div>
