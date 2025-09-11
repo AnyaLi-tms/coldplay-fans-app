@@ -80,7 +80,6 @@ function Merchandise() {
             <div
               style={{
                 width: '100%',
-                background: '#222',
                 boxShadow: '0 -2px 12px rgba(0,0,0,0.06)',
                 display: 'flex',
                 justifyContent: 'center',
