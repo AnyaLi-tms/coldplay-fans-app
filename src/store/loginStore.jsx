@@ -26,7 +26,8 @@ export const useLoginStore = create((set, get) => ({
     if (res.status === 201) {
       return true;
     }
-    get().setError(res.data.error || '注册失败');
+    console.log(res.data);
+    get().setError(res.data.msg ||  '注册失败');
     console.log(get().error);
     return false;
   },
