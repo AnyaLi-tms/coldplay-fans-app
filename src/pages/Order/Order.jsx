@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useOrderStore } from '../../store/orderStore';
 import { useTicketSelectStore } from '../../store/ticketSelectStore';
 import styles from './Order.module.css';
@@ -21,8 +21,9 @@ function Order() {
     loadMerchandiseOrders();
   }, [loadTicketOrders, loadMerchandiseOrders, navigate]);
 
+  const [activeKey, setActiveKey] = useState('1');
   function onChange(key) {
-    console.log(`Tab changed to: ${key}`);
+    setActiveKey(key);
   }
 
   return (
@@ -30,11 +31,22 @@ function Order() {
       <h1>用户订单</h1>
       <Tabs
         onChange={onChange}
+        activeKey={activeKey}
         type="card"
         size="large"
         items={[
           {
-            label: '演唱会门票订单',
+            label: (
+              <span
+                className={
+                  activeKey === '1'
+                    ? `${styles.customTab} ${styles.customTabActive}`
+                    : styles.customTab
+                }
+              >
+                演唱会门票订单
+              </span>
+            ),
             key: '1',
             children: (
               <section>
@@ -72,14 +84,8 @@ function Order() {
                       </li>
                     ))
                   ) : (
-                    <div style={{ margin: 'auto', textAlign: 'center' }}>
-                      <div>
-                        <img
-                          src="src/assets/noOrder.png"
-                          alt="No Orders"
-                          style={{ width: '300px', marginTop: '200px' }}
-                        />
-                      </div>
+                    <div className={styles.emptyOrder}>
+                      <img src="src/assets/noOrder.png" alt="No Orders" />
                       <h2>您暂时没有演唱会门票订单</h2>
                     </div>
                   )}
@@ -88,7 +94,17 @@ function Order() {
             ),
           },
           {
-            label: '周边订单',
+            label: (
+              <span
+                className={
+                  activeKey === '2'
+                    ? `${styles.customTab} ${styles.customTabActive}`
+                    : styles.customTab
+                }
+              >
+                周边订单
+              </span>
+            ),
             key: '2',
             children: (
               <section>
@@ -123,14 +139,8 @@ function Order() {
                       </li>
                     ))
                   ) : (
-                    <div style={{ margin: 'auto', textAlign: 'center' }}>
-                      <div>
-                        <img
-                          src="src/assets/noOrder.png"
-                          alt="No Orders"
-                          style={{ width: '300px', marginTop: '200px' }}
-                        />
-                      </div>
+                    <div className={styles.emptyOrder}>
+                      <img src="src/assets/noOrder.png" alt="No Orders" />
                       <h2>您暂时没有周边订单</h2>
                     </div>
                   )}

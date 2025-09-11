@@ -1,3 +1,18 @@
+.customTabActive {
+  color: #d7000f !important;
+}
+/* 自定义tab标签样式 */
+.customTab {
+  color: #222;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+}
+.customTab:hover {
+  color: #d7000f;
+}
 .userPage {
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -18,34 +33,67 @@ h2 {
 .orderItem {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 16px 0 rgba(215, 0, 15, 0.06);
+  transition:
+    box-shadow 0.2s,
+    border 0.2s;
+}
+.orderItem:hover {
+  border: 1.5px solid #d7000f;
+  box-shadow: 0 6px 24px 0 rgba(215, 0, 15, 0.12);
 }
 
 .orderImage {
   width: 120px;
   height: 120px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-right: 15px;
+  border-radius: 10px;
+  margin-right: 20px;
+  border: 1px solid #eee;
+  background: #fafafa;
 }
 
 .orderDetails {
   flex: 1;
+  font-size: 15px;
+  color: #333;
 }
 
 .orderDetails p {
-  margin: 5px 0;
+  margin: 6px 0;
   color: #444;
+  font-size: 15px;
 }
 
-.orderDetails h4 {
-  margin-top: 10px;
+.orderDetails ul {
+  margin: 0 0 0 16px;
+  padding: 0;
+  list-style: disc;
+}
+.orderDetails li {
+  margin: 2px 0;
   color: #666;
+  font-size: 14px;
+}
+.emptyOrder {
+  margin: 40px auto 0 auto;
+  text-align: center;
+  color: #bbb;
+}
+.emptyOrder img {
+  width: 220px;
+  margin-top: 80px;
+  opacity: 0.7;
+}
+.emptyOrder h2 {
+  color: #d7000f;
+  font-size: 18px;
+  margin-top: 18px;
 }
 
 ul {
