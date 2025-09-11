@@ -25,6 +25,7 @@ const MerchandisePayment = () => {
   // 检查收件信息是否为空
   const checkInfo = () =>
     recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== '';
+
   // 检查本地token
   const checkLogin = () => {
     const token = localStorage.getItem('token');

@@ -1,67 +1,27 @@
 import { create } from 'zustand';
-import {
-  getAllOrders,
-  getOrderById,
-  createOrder,
-  updateOrder,
-  deleteOrder,
-} from '../services/order';
+import { loadMerchandiseOrders, buyMerchandise } from '../services/order';
 
 export const useOrderStore = create((set, get) => ({
-  orders: [],
+  merchandiseOrders: [],
   loading: false,
   error: null,
 
-  fetchOrders: async () => {
+  fetchBuyMerchandise: async (data) => {
     set({ loading: true, error: null });
     try {
-      const res = await getAllOrders();
-      set({ orders: res, loading: false });
+      const res = await buyMerchandise(data);
+      set({ merchandiseOrders: res.data, loading: false });
     } catch (err) {
-      set({ error: err, loading: false });
+      set({ error: err.response?.data || err.message, loading: false });
+      return err.response?.data || { status: 'false', msg: '购买周边失败' };
     }
   },
 
-  fetchOrderById: async (id) => {
+  loadMerchandiseOrders: async () => {
     set({ loading: true, error: null });
     try {
-      const res = await getOrderById(id);
-      return res;
-    } catch (err) {
-      set({ error: err, loading: false });
-      return null;
-    }
-  },
-
-  addOrder: async (order) => {
-    set({ loading: true, error: null });
-    try {
-      const res = await createOrder(order);
-      await get().fetchOrders();
-      return res;
-    } catch (err) {
-      set({ error: err, loading: false });
-      return null;
-    }
-  },
-
-  updateOrder: async (id, updatedOrder) => {
-    set({ loading: true, error: null });
-    try {
-      const res = await updateOrder(id, updatedOrder);
-      await get().fetchOrders();
-      return res;
-    } catch (err) {
-      set({ error: err, loading: false });
-      return null;
-    }
-  },
-
-  removeOrder: async (id) => {
-    set({ loading: true, error: null });
-    try {
-      await deleteOrder(id);
-      await get().fetchOrders();
+      const res = await loadMerchandiseOrders();
+      set({ merchandiseOrders: res, loading: false });
     } catch (err) {
       set({ error: err, loading: false });
     }
