@@ -22,7 +22,12 @@ function Merchandise() {
   // 计算分页数据
   const totalItems = merchandise ? merchandise.length : 0;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const pagedMerchandise = merchandise ? merchandise.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : [];
+  const pagedMerchandise = merchandise
+    ? merchandise.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage,
+      )
+    : [];
 
   return (
     <div className={styles.merchPage}>
@@ -92,7 +97,13 @@ function Merchandise() {
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                style={{ padding: '6px 14px', borderRadius: 6, border: '1px solid #ddd', background: '#fff', cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+                style={{
+                  padding: '6px 14px',
+                  borderRadius: 6,
+                  border: '1px solid #ddd',
+                  background: '#fff',
+                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                }}
               >
                 上一页
               </button>
@@ -109,7 +120,8 @@ function Merchandise() {
                   // show previous page if not first/second
                   if (currentPage - 1 > 1) pages.push(currentPage - 1);
                   // show current page if not first/last
-                  if (currentPage !== 1 && currentPage !== totalPages) pages.push(currentPage);
+                  if (currentPage !== 1 && currentPage !== totalPages)
+                    pages.push(currentPage);
                   // show next page if not last/second last
                   if (currentPage + 1 < totalPages) pages.push(currentPage + 1);
                   // show ... if currentPage < totalPages - 2
@@ -120,29 +132,45 @@ function Merchandise() {
                 // 去重并排序
                 const uniquePages = Array.from(new Set(pages)).filter(Boolean);
                 return uniquePages.map((p, idx) =>
-                  p === '...'
-                    ? <span key={'ellipsis-' + idx} style={{ color: '#fff', padding: '0 8px' }}>...</span>
-                    : <button
-                        key={p}
-                        onClick={() => setCurrentPage(p)}
-                        style={{
-                          padding: '6px 12px',
-                          borderRadius: 6,
-                          border: '1px solid #ddd',
-                          background: currentPage === p ? '#ff4d4f' : '#fff',
-                          color: currentPage === p ? '#fff' : '#222',
-                          cursor: 'pointer',
-                          fontWeight: currentPage === p ? 600 : 400,
-                        }}
-                      >
-                        {p}
-                      </button>,
+                  p === '...' ? (
+                    <span
+                      key={'ellipsis-' + idx}
+                      style={{ color: '#fff', padding: '0 8px' }}
+                    >
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      key={p}
+                      onClick={() => setCurrentPage(p)}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: 6,
+                        border: '1px solid #ddd',
+                        background: currentPage === p ? '#ff4d4f' : '#fff',
+                        color: currentPage === p ? '#fff' : '#222',
+                        cursor: 'pointer',
+                        fontWeight: currentPage === p ? 600 : 400,
+                      }}
+                    >
+                      {p}
+                    </button>
+                  ),
                 );
               })()}
               <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
-                style={{ padding: '6px 14px', borderRadius: 6, border: '1px solid #ddd', background: '#fff', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+                style={{
+                  padding: '6px 14px',
+                  borderRadius: 6,
+                  border: '1px solid #ddd',
+                  background: '#fff',
+                  cursor:
+                    currentPage === totalPages ? 'not-allowed' : 'pointer',
+                }}
               >
                 下一页
               </button>
