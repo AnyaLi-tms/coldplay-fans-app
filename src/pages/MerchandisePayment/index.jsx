@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import alipayIcon from '../../assets/alipay.svg';
 import styles from './index.module.css';
 import PopUp from '../Payment/components/Popup';
-import validateIdCard from '../Payment/utils/validateIdCard';
-import { useMerchandisePaymentStore } from '../../store/merchandisePayment';
-import { usePaymentStore } from '../../store/paymentStore';
-import { submitMerchandisePayment } from '../../services/merchandisePayment';
+import {
+  getStocks,
+  submitMerchandisePayment,
+} from '../../services/merchandisePayment'
 const MerchandisePayment = () => {
   const location = useLocation();
-  const { merchandiseId } = location.state || {};
-  const { merchandiseInfo, error, getMerchandiseInfo, setError } =
-    useMerchandisePaymentStore();
+  const { type, name, description, price,imgUrl } = location.state || {};
+  const [merchandiseInfo, setMerchandiseInfo] = useState({
+    type: '',
+    name: '',
+    description: '', 
+    price: 0,
+    stock: 0,
+    imageUrl: '',
+  });
   const [count, setCount] = useState(1);
-
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [recipient, setRecipient] = useState('');
@@ -21,13 +26,22 @@ const MerchandisePayment = () => {
   const discount = 0.2 * merchandiseInfo.price; // 20% 折扣
   const transformPrice = 5;
   const navigate = useNavigate();
-
+const getStockByName = async (name) => {
+    const response = await getStocks();
+    if (response.status === 200) {
+      const stockData = response.data;
+      const item = stockData[name];
+      if (item) {
+        setMerchandiseInfo((prev) => ({ ...prev, stock: item }));
+      } else {
+        setPopup({ visible: true, status: '', msg: '未找到该商品的库存信息' });
+      }
+    } else {
+      setPopup({ visible: true, status: 'error', msg: '获取商品库存失败' });
+    }
+  }
   // 检查收件信息是否为空
-  const checkInfo = () => {
-    return (
-      recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== ''
-    );
-  };
+  const checkInfo = () => recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== '';
   // 检查本地token
   const checkLogin = () => {
     const token = localStorage.getItem('token');
@@ -48,21 +62,19 @@ const MerchandisePayment = () => {
     } else {
       setCount(count > 1 ? count - 1 : 1);
     }
-  };
-  const handleError = () => {
-    if (error) {
-      setPopup({ visible: true, status: 'error', msg: error });
-    }
-  };
-
+  }; 
   useEffect(() => {
+    setMerchandiseInfo((prev) => ({
+      ...prev,
+      name: name,
+      description: description,
+      price: price,
+      imageUrl: imgUrl,
+      type: type,
+    }));
+    getStockByName(merchandiseInfo.name);
     checkLogin();
-    const msg = getMerchandiseInfo(merchandiseId);
-    setError(msg);
-    handleError();
-    // ...existing code...
   }, []);
-  const { fetchBuyTicket } = usePaymentStore();
 
   // 关闭弹窗时根据支付结果跳转
   const handlePopupClose = () => {
@@ -91,10 +103,11 @@ const MerchandisePayment = () => {
     setPopup({ visible: true, status: 'paying', msg: '正在支付中，请稍后...' });
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const result = await submitMerchandisePayment({
-      merchandiseId: merchandiseInfo.id,
+      type: merchandiseInfo.type,
+      address: address,
       quantity: count,
     });
-    if (result.Status === 200) {
+    if (result.status === 200) {
       setPopup({
         visible: true,
         status: 'success',
@@ -115,7 +128,7 @@ const MerchandisePayment = () => {
         <div className={styles['concert-title']}>{merchandiseInfo.name}</div>
         <div className={styles['merchandise-row']}>
           <div className={styles['concert-subtitle']}>
-            {merchandiseInfo.descryption}
+            {merchandiseInfo.description}
           </div>
           <div className={styles['merchandise-image-container']}>
             <img
