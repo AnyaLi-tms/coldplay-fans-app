@@ -11,22 +11,16 @@ const Banner = () => {
   }, [fetchBanners]);
 
   return (
-    <div className={styles.banner}>
-      <Carousel autoplay arrows>
-        {loading && <div>加载中...</div>}
-        {banners.map((b) => (
-          <div className={styles['banner-item']} key={b.id || b.img}>
-            <a href={b.link} target="_blank" rel="noopener noreferrer">
-              <img
-                src={b.imgUrl}
-                alt={b.name}
-                className={styles['banner-img']}
-              />
-            </a>
-          </div>
-        ))}
-      </Carousel>
-    </div>
+    <Carousel autoplay arrows>
+      {loading && <div>加载中...</div>}
+      {banners.map((b) => (
+        <div className={styles['banner-item']} key={b.id || b.img}>
+          <a href={b.link} target="_blank" rel="noopener noreferrer">
+            <img src={b.imgUrl} alt={b.name} className={styles['banner-img']} />
+          </a>
+        </div>
+      ))}
+    </Carousel>
   );
 };
 

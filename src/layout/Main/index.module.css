@@ -1,5 +1,6 @@
 .main {
   flex: 1;
   overflow: auto;
-  min-height: calc(100vh - 64px);
+  top: 64px;
+  max-height: calc(100vh - 64px);
 }

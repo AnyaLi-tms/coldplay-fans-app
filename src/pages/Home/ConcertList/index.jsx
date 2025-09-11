@@ -30,7 +30,7 @@ const ConcertList = () => {
   };
 
   return (
-    <div className={styles['concert-container']}>
+    <div>
       <Search />
       <div>
         {loading && <div>加载中...</div>}
