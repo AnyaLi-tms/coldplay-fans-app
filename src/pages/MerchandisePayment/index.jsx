@@ -23,11 +23,9 @@ const MerchandisePayment = () => {
   const navigate = useNavigate();
 
   // 检查收件信息是否为空
-  const checkInfo = () => {
-    return (
-      recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== ''
-    );
-  };
+  const checkInfo = () =>
+    recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== '';
+
   // 检查本地token
   const checkLogin = () => {
     const token = localStorage.getItem('token');
