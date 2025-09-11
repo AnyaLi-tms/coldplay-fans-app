@@ -6,9 +6,3 @@ export const fetchMerchandiseList = (keyword = '') =>
     if (!keyword) return res.data;
     return res.data.filter((item) => item.name.includes(keyword));
   });
-
-export const loadMerchandiseOrders = () =>
-  api.get('/merchandises/myMerchandise').then((res) => res.data);
-
-export const buyMerchandise = async (data) =>
-  api.put('/merchandises/buyMerchandise', data);
