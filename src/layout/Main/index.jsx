@@ -17,7 +17,7 @@ const Main = () => (
       <Route path="/ticket/payment" element={<Payment />} />
       <Route path="/merchandise" element={<Merchandise />} />
       <Route path="/order" element={<Order />} />
-      <Route path="/merchandises/:id" element={<MerchandisePayment />} />
+      <Route path="/merchandise/payment" element={<MerchandisePayment />} />
     </Routes>
   </div>
 );

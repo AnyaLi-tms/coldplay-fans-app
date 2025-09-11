@@ -5,7 +5,7 @@ import {
 } from '../services/merchandisePayment';
 export const useMerchandisePaymentStore = create((set, get) => ({
   merchandiseInfo: {
-    id: null,
+    type: '',
     name: '',
     descryption: '',
     price: null,
