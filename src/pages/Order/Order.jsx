@@ -4,6 +4,7 @@ import { useTicketSelectStore } from '../../store/ticketSelectStore';
 import styles from './Order.module.css';
 import { useNavigate } from 'react-router-dom';
 import { Tabs } from 'antd';
+import noOrder from '../../assets/noOrder.png';
 
 function Order() {
   const [activeKey, setActiveKey] = useState('1');
@@ -117,7 +118,7 @@ function Order() {
                   </table>
                 ) : (
                   <div className={styles.emptyOrder}>
-                    <img src="src/assets/noOrder.png" alt="No Orders" />
+                    <img src={noOrder} alt="No Orders" />
                     <h2>您暂时没有演唱会门票订单</h2>
                   </div>
                 )}
@@ -206,7 +207,7 @@ function Order() {
                   </table>
                 ) : (
                   <div className={styles.emptyOrder}>
-                    <img src="src/assets/noOrder.png" alt="No Orders" />
+                    <img src={noOrder} alt="No Orders" />
                     <h2>您暂时没有周边订单</h2>
                   </div>
                 )}
