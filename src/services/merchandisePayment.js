@@ -12,7 +12,7 @@ export async function getStocks() {
 //提交订单
 export async function submitMerchandisePayment(info) {
   try {
-    const response = await api.put('merchandises', info);
+    const response = await api.put('merchandises/buyMerchandise', info);
     return response;
   } catch (err) {
     return err?.response || { data: { success: false, message: err.message } };

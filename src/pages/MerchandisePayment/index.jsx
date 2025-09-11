@@ -11,12 +11,12 @@ const MerchandisePayment = () => {
   const location = useLocation();
   const { type, name, description, price,imgUrl } = location.state || {};
   const [merchandiseInfo, setMerchandiseInfo] = useState({
-    type: '',
-    name: '',
-    description: '', 
-    price: 0,
+    type: type,
+    name: name,
+    description: description,
+    price: price,
     stock: 0,
-    imageUrl: '',
+    imageUrl: imgUrl,
   });
   const [count, setCount] = useState(1);
   const [phone, setPhone] = useState('');
@@ -64,15 +64,8 @@ const getStockByName = async (name) => {
     }
   }; 
   useEffect(() => {
-    setMerchandiseInfo((prev) => ({
-      ...prev,
-      name: name,
-      description: description,
-      price: price,
-      imageUrl: imgUrl,
-      type: type,
-    }));
     getStockByName(merchandiseInfo.name);
+    console.log(merchandiseInfo);
     checkLogin();
   }, []);
 
