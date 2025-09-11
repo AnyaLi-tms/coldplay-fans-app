@@ -5,6 +5,7 @@ import Payment from '../../pages/Payment';
 import Order from '../../pages/Order/Order';
 import Merchandise from '../../pages/Merchandise/Merchandise';
 import { Routes, Route } from 'react-router-dom';
+import MerchandisePayment from '../../pages/MerchandisePayment';
 import styles from './index.module.css';
 
 const Main = () => (
@@ -16,6 +17,7 @@ const Main = () => (
       <Route path="/ticket/payment" element={<Payment />} />
       <Route path="/merchandise" element={<Merchandise />} />
       <Route path="/order" element={<Order />} />
+      <Route path="/merchandise/payment" element={<MerchandisePayment />} />
     </Routes>
   </div>
 );
