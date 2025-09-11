@@ -34,7 +34,7 @@ function Order() {
         size="large"
         items={[
           {
-            label: '演唱会订单门票',
+            label: '演唱会门票订单',
             key: '1',
             children: (
               <section>
@@ -56,6 +56,8 @@ function Order() {
                             购买日期:{' '}
                             {new Date(order.purchaseDate).toLocaleString()}
                           </p>
+                          <p>演唱会日期: {order.concertDate}</p>
+                          <p>演唱会时间: {order.concertTime}</p>
                           <p>状态: {order.status}</p>
                           <h4>票务详情:</h4>
                           <ul>
@@ -70,7 +72,16 @@ function Order() {
                       </li>
                     ))
                   ) : (
-                    <p>暂无演唱会门票订单</p>
+                    <div style={{ margin: 'auto', textAlign: 'center' }}>
+                      <div>
+                        <img
+                          src="src/assets/noOrder.png"
+                          alt="No Orders"
+                          style={{ width: '300px', marginTop: '20px' }}
+                        />
+                      </div>
+                      <h2>您暂时没有演唱会门票订单</h2>
+                    </div>
                   )}
                 </ul>
               </section>
@@ -82,34 +93,47 @@ function Order() {
             children: (
               <section>
                 <ul>
-                  {merchandiseOrders.map((order) => (
-                    <li key={order.orderId} className={styles.orderItem}>
-                      <img
-                        src={order.imgUrl}
-                        alt="Merchandise"
-                        className={styles.orderImage}
-                      />
-                      <div className={styles.orderDetails}>
-                        <p>订单号: {order.orderId}</p>
-                        <p>数量: {order.amount}</p>
-                        <p>总价: ¥{order.totalPrice.toFixed(2)}</p>
-                        <p>
-                          购买日期:{' '}
-                          {new Date(order.purchaseDate).toLocaleString()}
-                        </p>
-                        <p>状态: {order.status}</p>
-                        <h4>商品列表:</h4>
-                        <ul>
-                          {order.merchandiseList.map((item) => (
-                            <li key={item.merchandiseId}>
-                              {item.merchandiseName} - ¥
-                              {item.merchandisePrice.toFixed(2)}
-                            </li>
-                          ))}
-                        </ul>
+                  {merchandiseOrders && merchandiseOrders.length > 0 ? (
+                    merchandiseOrders.map((order) => (
+                      <li key={order.orderId} className={styles.orderItem}>
+                        <img
+                          src={order.imgUrl}
+                          alt="Merchandise"
+                          className={styles.orderImage}
+                        />
+                        <div className={styles.orderDetails}>
+                          <p>订单号: {order.orderId}</p>
+                          <p>数量: {order.amount}</p>
+                          <p>总价: ¥{order.totalPrice.toFixed(2)}</p>
+                          <p>
+                            购买日期:{' '}
+                            {new Date(order.purchaseDate).toLocaleString()}
+                          </p>
+                          <p>状态: {order.status}</p>
+                          <h4>商品列表:</h4>
+                          <ul>
+                            {order.merchandiseList.map((item) => (
+                              <li key={item.merchandiseId}>
+                                {item.merchandiseName} - ¥
+                                {item.merchandisePrice.toFixed(2)}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </li>
+                    ))
+                  ) : (
+                    <div style={{ margin: 'auto', textAlign: 'center' }}>
+                      <div>
+                        <img
+                          src="src/assets/noOrder.png"
+                          alt="No Orders"
+                          style={{ width: '300px', marginTop: '20px' }}
+                        />
                       </div>
-                    </li>
-                  ))}
+                      <h2>您暂时没有周边订单</h2>
+                    </div>
+                  )}
                 </ul>
               </section>
             ),
