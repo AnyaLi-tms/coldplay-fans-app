@@ -77,7 +77,7 @@ function Order() {
                         <img
                           src="src/assets/noOrder.png"
                           alt="No Orders"
-                          style={{ width: '300px', marginTop: '20px' }}
+                          style={{ width: '300px', marginTop: '200px' }}
                         />
                       </div>
                       <h2>您暂时没有演唱会门票订单</h2>
@@ -128,7 +128,7 @@ function Order() {
                         <img
                           src="src/assets/noOrder.png"
                           alt="No Orders"
-                          style={{ width: '300px', marginTop: '20px' }}
+                          style={{ width: '300px', marginTop: '200px' }}
                         />
                       </div>
                       <h2>您暂时没有周边订单</h2>
