@@ -116,6 +116,11 @@ function Order() {
                           src={order.imgUrl}
                           alt="Merchandise"
                           className={styles.orderImage}
+                          style={{
+                            width: '150px',
+                            height: '150px',
+                            objectFit: 'cover',
+                          }}
                         />
                         <div className={styles.orderDetails}>
                           <p>订单号: {order.orderId}</p>
