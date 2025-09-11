@@ -38,8 +38,8 @@
   z-index: 9999;
   text-align: center;
   min-width: 200px;
-  margin-top: 18px;
-  opacity: 0.75;
+  margin-top: 108px;
+  opacity: 0.85;
   animation: fadeInOut 3s linear;
 }
 .logo {
