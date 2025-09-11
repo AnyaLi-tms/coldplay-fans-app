@@ -1,9 +1,9 @@
 import api from './api';
 
-//获取商品信息
-export async function getMerchandiseById(id) {
+//获取库存
+export async function getStocks() {
   try {
-    const response = await api.get(`merchandises/${id}`);
+    const response = await api.get('merchandises/count');
     return response;
   } catch (err) {
     return err?.response || { data: { success: false, message: err.message } };
