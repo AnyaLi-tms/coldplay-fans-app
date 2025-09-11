@@ -26,7 +26,7 @@ const Payment = () => {
     if (popup.status === 'success') {
       navigate('/');
     } else if (popup.status === 'error') {
-      navigate(`/ticket/prices/${concertId}`);
+      //navigate(`/ticket/prices/${concertId}`);
     }
   };
 

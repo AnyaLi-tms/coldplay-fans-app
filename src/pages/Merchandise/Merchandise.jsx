@@ -3,8 +3,7 @@ import styles from './Merchandise.module.css';
 import useMerchandiseStore from '../../store/merchandiseStore';
 
 function Merchandise() {
-  const { merchandise, loading, error, fetchMerchandise } =
-    useMerchandiseStore();
+  const { merchandise, loading, fetchMerchandise } = useMerchandiseStore();
   const [searchVal, setSearchVal] = React.useState('');
 
   useEffect(() => {
@@ -16,7 +15,6 @@ function Merchandise() {
     e.preventDefault();
     fetchMerchandise(searchVal);
   };
-  console.log('merchandise:', merchandise);
   return (
     <div className={styles.merchPage}>
       <form className={styles.searchBar} onSubmit={handleSearch}>

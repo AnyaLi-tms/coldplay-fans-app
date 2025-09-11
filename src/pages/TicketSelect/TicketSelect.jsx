@@ -10,11 +10,10 @@ import { useRef } from 'react';
 function TicketSelect() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { tickets, fetchTicketData, selectTicket, selectedTicketId } =
+  const { tickets, fetchTicketData, selectTicket, selectedTicketId, imgUrl } =
     useTicketSelectStore();
   const { concert, fetchDetail } = useConcertDetailStore();
   const [quantity, setQuantity] = useState(1);
-  const seatMapUrl = concert.seatMapUrl;
   // 答题store
   const {
     quizList,
@@ -43,6 +42,11 @@ function TicketSelect() {
     setQuizWarning('');
   };
   const handleQuizSubmit = async () => {
+    // 检查是否全部答完
+    if (quizValues.length !== quizList.length || quizValues.some((v) => !v)) {
+      setQuizWarning('请完成所有题目再提交');
+      return;
+    }
     // 后端校验答案
     const res = await checkAnswers();
     if (!res) {
@@ -80,7 +84,7 @@ function TicketSelect() {
     }
     fetchTicketData(id);
     fetchDetail(id);
-  }, [id, fetchTicketData, fetchDetail, navigate]);
+  }, []);
 
   return (
     <>
@@ -110,12 +114,8 @@ function TicketSelect() {
               style={{ maxWidth: contentMaxWidth }}
             >
               <div className={styles.poster}>
-                {concert.imgUrl && (
-                  <img
-                    src={concert.imgUrl}
-                    alt="海报"
-                    className={styles.posterImg}
-                  />
+                {imgUrl && (
+                  <img src={imgUrl} alt="海报" className={styles.posterImg} />
                 )}
               </div>
               <div className={styles.info}>
@@ -174,11 +174,13 @@ function TicketSelect() {
                 ))}
               </div>
               <div className={styles.seatmap}>
-                <img
-                  src={seatMapUrl}
-                  alt="座位图"
-                  className={styles.seatmapImg}
-                />
+                {concert.seatMapUrl && (
+                  <img
+                    src={concert.seatMapUrl}
+                    alt="座位图"
+                    className={styles.seatmapImg}
+                  />
+                )}
               </div>
             </div>
             {/* 底部：购票按钮和数量卡片 */}
