@@ -6,10 +6,10 @@ import PopUp from '../Payment/components/Popup';
 import {
   getStocks,
   submitMerchandisePayment,
-} from '../../services/merchandisePayment'
+} from '../../services/merchandisePayment';
 const MerchandisePayment = () => {
   const location = useLocation();
-  const { type, name, description, price,imgUrl } = location.state || {};
+  const { type, name, description, price, imgUrl } = location.state || {};
   const [merchandiseInfo, setMerchandiseInfo] = useState({
     type: type,
     name: name,
@@ -23,10 +23,10 @@ const MerchandisePayment = () => {
   const [address, setAddress] = useState('');
   const [recipient, setRecipient] = useState('');
   const [popup, setPopup] = useState({ visible: false, status: 'paying' });
-  const discount = 0.2 * merchandiseInfo.price; // 20% 折扣
-  const transformPrice = 5;
+  const discount = 0;
+  const transformPrice = 0;
   const navigate = useNavigate();
-const getStockByName = async (name) => {
+  const getStockByName = async (name) => {
     const response = await getStocks();
     if (response.status === 200) {
       const stockData = response.data;
@@ -39,9 +39,10 @@ const getStockByName = async (name) => {
     } else {
       setPopup({ visible: true, status: 'error', msg: '获取商品库存失败' });
     }
-  }
+  };
   // 检查收件信息是否为空
-  const checkInfo = () => recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== '';
+  const checkInfo = () =>
+    recipient.trim() !== '' && phone.trim() !== '' && address.trim() !== '';
   // 检查本地token
   const checkLogin = () => {
     const token = localStorage.getItem('token');
@@ -62,7 +63,7 @@ const getStockByName = async (name) => {
     } else {
       setCount(count > 1 ? count - 1 : 1);
     }
-  }; 
+  };
   useEffect(() => {
     getStockByName(merchandiseInfo.name);
     console.log(merchandiseInfo);
@@ -117,6 +118,7 @@ const getStockByName = async (name) => {
 
   return (
     <div className={styles['payment-container']}>
+      <div className={styles['order-title']}>订单详情</div>
       <div className={styles['concert-section']}>
         <div className={styles['concert-title']}>{merchandiseInfo.name}</div>
         <div className={styles['merchandise-row']}>
