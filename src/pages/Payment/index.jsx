@@ -85,20 +85,21 @@ const Payment = () => {
 
   return (
     <div className={styles['payment-container']}>
-      <div className={styles['concert-section']}>
-        <div className={styles['concert-title']}>{concert.name}</div>
-        <div className={styles['concert-location']}>
-          {concert.city} | {concert.venue}
+      <div className={styles['payment-content']}>
+        <div className={styles['section']}>
+          <div className={styles['concert-title']}>{concert.name}</div>
+          <div className={styles['concert-location']}>
+            {concert.city} | {concert.venue}
+          </div>
+          <div className={styles['concert-time']}>
+            {concert.startDate + ' ' + concert.startTime}
+          </div>
+          <div className={styles['ticket-info']}>
+            ￥{price} 票档 × {quantity}张
+          </div>
         </div>
-        <div className={styles['concert-time']}>
-          {concert.startDate + ' ' + concert.startTime}
-        </div>
-        <div className={styles['ticket-info']}>
-          ￥{price} 票档 × {quantity}张
-        </div>
-      </div>
-      <div className={styles['content-container']}>
-        <div className={styles['delivery-section']}>
+
+        <div className={styles['section']}>
           <div className={styles['delivery-title']}>配送信息</div>
           <div>
             <div>
@@ -111,7 +112,7 @@ const Payment = () => {
           </div>
         </div>
 
-        <div className={styles['id-section']}>
+        <div className={styles['section']} style={{ borderBottom: 'none' }}>
           <div className={styles['id-title']}>实名观演人</div>
           {Array(quantity)
             .fill(0)
@@ -131,8 +132,7 @@ const Payment = () => {
             ))}
         </div>
 
-        {/* 支付方式 */}
-        <div className={styles['payment-method']}>
+        <div className={`${styles['section']} ${styles['no-border']}`}>
           <div className={styles['method-title']}>支付方式</div>
           <div className={styles['method-row']}>
             <div className={styles['method-icon-container']}>
@@ -179,7 +179,6 @@ const Payment = () => {
           支付
         </button>
       </div>
-
       <PopUp
         visible={popup.visible}
         status={popup.status}
